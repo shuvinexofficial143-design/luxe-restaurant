@@ -1,0 +1,22 @@
+
+:root{--lx-bg:#efe5da;--lx-paper:#fffaf4;--lx-ink:#201713;--lx-wine:#7c241e;--lx-emerald:#335f50;--lx-gold:#efc28b;--lx-muted:#75645d}
+html{scroll-behavior:smooth;background:var(--lx-bg)}
+body{background:radial-gradient(circle at 10% 0%,rgba(239,194,139,.14),transparent 28rem),linear-gradient(180deg,#efe5da,#f3ebe3);color:var(--lx-ink);-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+::selection{background:var(--lx-wine);color:#fff}
+:focus-visible{outline:2px solid var(--lx-gold);outline-offset:3px}
+.lx-glass{background:rgba(255,250,244,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(74,48,37,.08)}
+.lx-card{border-radius:24px;background:var(--lx-paper);box-shadow:0 24px 60px rgba(46,28,22,.12)}
+.lx-interactive{transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease}
+.lx-tap:active{transform:scale(.975)}
+.lx-safe-bottom{padding-bottom:max(1rem,env(safe-area-inset-bottom))}
+.lx-safe-top{padding-top:max(.75rem,env(safe-area-inset-top))}
+.lx-shimmer{position:relative;overflow:hidden;background:#e9ddd1}
+.lx-shimmer:after{content:"";position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.48),transparent);animation:lx-shimmer 1.6s infinite}
+@keyframes lx-shimmer{to{transform:translateX(120%)}}
+.lx-reveal{opacity:0;transform:translateY(18px)}
+.lx-reveal[data-visible="true"]{opacity:1;transform:none;transition:opacity .64s cubic-bezier(.2,.8,.2,1),transform .64s cubic-bezier(.2,.8,.2,1)}
+.lx-route-enter{animation:lx-route-enter .42s cubic-bezier(.2,.8,.2,1) both}
+@keyframes lx-route-enter{from{opacity:0;transform:translateY(8px) scale(.995)}to{opacity:1;transform:none}}
+@media(hover:hover) and (pointer:fine){.lx-interactive:hover{transform:translateY(-4px);box-shadow:0 28px 70px rgba(46,28,22,.16)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}.lx-reveal{opacity:1!important;transform:none!important}}
+@media(max-width:767px){body{padding-bottom:max(76px,calc(64px + env(safe-area-inset-bottom)))}button,a{-webkit-tap-highlight-color:transparent}.lx-card{border-radius:20px}}

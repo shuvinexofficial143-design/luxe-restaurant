@@ -1,0 +1,3 @@
+"use client";
+import {useEffect,useState} from "react";import {getOpeningStatus} from "@/lib/visit/opening";
+export default function OpenNowBadge(){const [s,setS]=useState(()=>getOpeningStatus());useEffect(()=>{const t=window.setInterval(()=>setS(getOpeningStatus()),60000);return()=>window.clearInterval(t)},[]);return <span className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-[8px] uppercase tracking-[.12em] ${s.open?"bg-[#335f50]/10 text-[#335f50]":"bg-[#7c241e]/10 text-[#7c241e]"}`}><span className={`h-2 w-2 rounded-full ${s.open?"animate-pulse bg-[#335f50]":"bg-[#7c241e]"}`}/>{s.label}</span>}

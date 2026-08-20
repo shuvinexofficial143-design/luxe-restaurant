@@ -1,0 +1,3 @@
+import Link from "next/link";
+import type { Message } from "@/lib/concierge/types";
+export default function ChatMessage({message,links=[]}:{message:Message;links?:{label:string;href:string}[]}){const user=message.role==="user";return <div className={`flex ${user?"justify-end":"justify-start"}`}><div className={`max-w-[88%] rounded-[22px] px-4 py-3 ${user?"rounded-br-[6px] bg-[#7c241e] text-white":"rounded-bl-[6px] bg-[#fffaf4]"}`}><p className="text-sm leading-6">{message.text}</p>{!user&&links.length?<div className="mt-3 flex flex-wrap gap-2">{links.map(l=><Link key={l.href} href={l.href} className="rounded-full bg-white px-3 py-2 text-[8px] uppercase tracking-[.1em] text-[#7c241e]">{l.label} ↗</Link>)}</div>:null}</div></div>;}

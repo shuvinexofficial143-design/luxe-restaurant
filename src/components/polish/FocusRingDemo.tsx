@@ -1,0 +1,1 @@
+export default function FocusRingDemo(){return <div className="rounded-[20px] bg-[#fffaf4] p-4"><p className="text-[8px] uppercase tracking-[.1em] text-[#7c241e]">Keyboard focus</p><button type="button" className="mt-3 rounded-full bg-[#201713] px-4 py-3 text-[8px] uppercase text-white">Tab to test focus</button></div>}

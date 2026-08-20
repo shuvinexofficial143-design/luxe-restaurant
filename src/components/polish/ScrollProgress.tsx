@@ -1,0 +1,3 @@
+"use client";
+import{useEffect,useState}from"react";
+export default function ScrollProgress(){const[p,setP]=useState(0);useEffect(()=>{let f=0;const u=()=>{cancelAnimationFrame(f);f=requestAnimationFrame(()=>{const r=document.documentElement,m=r.scrollHeight-r.clientHeight;setP(m>0?Math.min(1,Math.max(0,r.scrollTop/m)):0)})};u();window.addEventListener("scroll",u,{passive:true});window.addEventListener("resize",u);return()=>{cancelAnimationFrame(f);window.removeEventListener("scroll",u);window.removeEventListener("resize",u)}},[]);return <div aria-hidden className="pointer-events-none fixed inset-x-0 top-0 z-[120] h-[2px]"><div className="h-full origin-left bg-[#efc28b]" style={{transform:`scaleX(${p})`}}/></div>}

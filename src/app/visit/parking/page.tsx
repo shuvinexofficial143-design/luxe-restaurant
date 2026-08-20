@@ -1,0 +1,3 @@
+import LuxeShell from "@/components/luxe/LuxeShell";import ParkingCard from "@/components/visit/ParkingCard";import ValetInfo from "@/components/visit/ValetInfo";import AccessibilityCard from "@/components/visit/AccessibilityCard";
+export const metadata={title:"Parking & Valet"};
+export default function Page(){return <LuxeShell><section className="px-3 pt-[100px] md:px-5 md:pt-[120px]"><div className="mx-auto max-w-[900px]"><p className="lx-kicker">Arrival</p><h1 className="lx-serif mt-2 text-5xl md:text-7xl">Parking & valet.</h1><div className="mt-6 grid gap-4 md:grid-cols-2"><ParkingCard/><ValetInfo/><AccessibilityCard/></div></div></section></LuxeShell>}

@@ -1,0 +1,4 @@
+"use client";
+import Link from"next/link";import{usePathname}from"next/navigation";import{softHaptic}from"@/lib/polish/haptics";
+const items=[["Home","/","⌂"],["Menu","/menu","≡"],["Book","/reservations","◷"],["Order","/order/live","▣"],["Account","/account/secure","◌"]];
+export default function MobileDock(){const p=usePathname();return <nav aria-label="Mobile quick navigation" className="lx-safe-bottom fixed inset-x-3 bottom-2 z-[100] md:hidden"><div className="lx-glass grid grid-cols-5 rounded-[22px] p-1.5 shadow-xl">{items.map(([l,h,i])=>{const a=h==="/"?p==="/":p.startsWith(h);return <Link key={h} href={h} onClick={softHaptic} aria-current={a?"page":undefined} className={`lx-tap flex min-h-[50px] flex-col items-center justify-center rounded-[16px] text-[8px] ${a?"bg-[#201713] text-[#efc28b]":"text-[#75645d]"}`}><span className="text-base">{i}</span><span>{l}</span></Link>})}</div></nav>}

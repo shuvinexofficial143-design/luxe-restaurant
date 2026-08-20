@@ -1,0 +1,1 @@
+export default function CinematicDivider({label="LUXE"}:{label?:string}){return <div aria-hidden className="flex items-center gap-3 py-4"><div className="h-px flex-1 bg-[#4a3025]/10"/><span className="text-[7px] uppercase tracking-[.3em] text-[#8a756b]">{label}</span><div className="h-px flex-1 bg-[#4a3025]/10"/></div>}

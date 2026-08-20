@@ -1,0 +1,3 @@
+"use client";
+import type {VisitPreference} from "@/lib/visit/types";
+export default function TravelModeSelector({value,onChange}:{value:VisitPreference["transport"];onChange:(v:VisitPreference["transport"])=>void}){const x:[VisitPreference["transport"],string][]=[["Car","🚗"],["Cab","🚕"],["Walk","🚶"],["Transit","◫"]];return <div className="grid grid-cols-4 gap-2">{x.map(([v,i])=><button key={v} type="button" onClick={()=>onChange(v)} className={`rounded-[18px] border p-3 ${value===v?"border-[#7c241e] bg-[#7c241e] text-white":"border-[#4a3025]/10 bg-white"}`}><span className="text-xl">{i}</span><p className="mt-1 text-[8px] uppercase">{v}</p></button>)}</div>}

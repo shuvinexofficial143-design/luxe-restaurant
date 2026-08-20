@@ -1,0 +1,3 @@
+"use client";
+import { useSyncExternalStore } from "react"; import { conciergeStore } from "@/lib/concierge/storage";
+export default function ConversationHistory(){const m=useSyncExternalStore(conciergeStore.subscribe,conciergeStore.getSnapshot,conciergeStore.getServerSnapshot);return m.length?<div className="space-y-2">{[...m].reverse().map(x=><div key={x.id} className="rounded-[20px] bg-[#fffaf4] p-4"><span className="text-[8px] uppercase tracking-[.11em] text-[#7c241e]">{x.role}</span><p className="mt-2 text-sm leading-6 text-[#66534b]">{x.text}</p></div>)}</div>:<div className="rounded-[26px] bg-[#fffaf4] p-8 text-center"><p className="lx-serif text-3xl">No conversation yet.</p></div>;}

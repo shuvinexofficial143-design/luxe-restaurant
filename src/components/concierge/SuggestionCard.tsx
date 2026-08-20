@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function SuggestionCard({icon,title,text,href}:{icon:string;title:string;text:string;href:string}){return <Link href={href} className="rounded-[22px] border border-[#4a3025]/10 bg-[#fffaf4] p-5"><span className="text-2xl">{icon}</span><h3 className="lx-serif mt-3 text-2xl">{title}</h3><p className="mt-2 text-xs leading-6 text-[#75645d]">{text}</p><span className="mt-4 inline-flex text-[9px] uppercase tracking-[.11em] text-[#7c241e]">Open ↗</span></Link>;}

@@ -1,0 +1,3 @@
+"use client";
+import { useState } from "react"; import { dishPicks } from "@/lib/concierge/recommendations"; import DishGrid from "@/components/menu/DishGrid";
+export default function FoodAssistant(){const [q,setQ]=useState("chef best");return <div><div className="rounded-[24px] bg-[#fffaf4] p-5"><p className="lx-kicker">Food assistant</p><h2 className="lx-serif mt-2 text-4xl">Find my dish.</h2><input value={q} onChange={e=>setQ(e.target.value)} className="mt-4 h-12 w-full rounded-[16px] border border-[#4a3025]/10 bg-white px-4 text-sm" placeholder="vegan, vegetarian, gluten free..."/></div><div className="mt-4"><DishGrid dishes={dishPicks(q)}/></div></div>;}

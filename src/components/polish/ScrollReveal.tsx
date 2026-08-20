@@ -1,0 +1,3 @@
+"use client";
+import type{ReactNode}from"react";import{useEffect,useRef,useState}from"react";
+export default function ScrollReveal({children,className=""}:{children:ReactNode;className?:string}){const ref=useRef<HTMLDivElement|null>(null);const[v,setV]=useState(false);useEffect(()=>{const n=ref.current;if(!n)return;const o=new IntersectionObserver(([e])=>{if(e.isIntersecting){setV(true);o.unobserve(n)}},{rootMargin:"0px 0px -8% 0px",threshold:.08});o.observe(n);return()=>o.disconnect()},[]);return <div ref={ref} data-visible={v?"true":"false"} className={`lx-reveal ${className}`}>{children}</div>}

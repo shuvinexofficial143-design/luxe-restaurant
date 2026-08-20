@@ -1,0 +1,1 @@
+export default function SwipeHint({label="Swipe to explore"}:{label?:string}){return <div className="inline-flex items-center gap-2 rounded-full bg-[#201713]/[.06] px-3 py-2 text-[8px] uppercase tracking-[.1em] text-[#75645d]"><span>←</span><span>{label}</span><span>→</span></div>}

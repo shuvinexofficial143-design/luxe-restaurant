@@ -1,0 +1,137 @@
+import type { EventRecord } from "./types";
+
+export const events: EventRecord[] = [
+  {
+    slug: "fire-and-ferment",
+    title: "Fire & Ferment",
+    subtitle: "A chef collaboration built around smoke, culture and acid.",
+    category: "Chef Collaboration",
+    date: "2026-08-29",
+    time: "7:30 PM",
+    duration: "3 hours",
+    image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1800&q=90",
+    description:
+      "Chef Aarav Mehra welcomes a guest chef for a one-night menu pairing open-fire cooking with fermentation-led sauces, pickles and broths.",
+    highlights: [
+      "8-course collaborative tasting menu",
+      "Open-kitchen welcome course",
+      "Optional wine pairing",
+      "Limited one-night seating",
+    ],
+    price: 6900,
+    capacity: 42,
+    seatsRemaining: 11,
+    featured: true,
+  },
+  {
+    slug: "cellar-after-dark",
+    title: "Cellar After Dark",
+    subtitle: "Rare bottles, small plates and a guided sommelier flight.",
+    category: "Wine Dinner",
+    date: "2026-09-05",
+    time: "8:00 PM",
+    duration: "2.5 hours",
+    image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1800&q=90",
+    description:
+      "A guided evening through six wines chosen for contrast: mineral whites, elegant reds and a final sweet pour with dessert.",
+    highlights: [
+      "6 guided wine pours",
+      "5 paired small plates",
+      "Sommelier-led tasting notes",
+      "Take-home tasting card",
+    ],
+    price: 5200,
+    capacity: 28,
+    seatsRemaining: 6,
+    featured: true,
+  },
+  {
+    slug: "monsoon-table",
+    title: "Monsoon Table",
+    subtitle: "A seasonal menu inspired by rain, herbs and warm spice.",
+    category: "Seasonal",
+    date: "2026-09-12",
+    time: "7:00 PM",
+    duration: "2.5 hours",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=90",
+    description:
+      "A limited seasonal menu celebrating the Indian monsoon through charcoal vegetables, broths, fresh herbs and deep spice.",
+    highlights: [
+      "7 seasonal courses",
+      "Vegetarian route available",
+      "Zero-proof pairing option",
+      "Single evening menu",
+    ],
+    price: 5900,
+    capacity: 48,
+    seatsRemaining: 22,
+  },
+  {
+    slug: "slow-sunday",
+    title: "Slow Sunday",
+    subtitle: "Long brunch, vinyl, shared plates and sparkling wine.",
+    category: "Brunch",
+    date: "2026-09-20",
+    time: "11:30 AM",
+    duration: "4 hours",
+    image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1800&q=90",
+    description:
+      "A relaxed daytime service with brunch plates, a vinyl selector and optional sparkling flights.",
+    highlights: [
+      "Brunch sharing menu",
+      "Vinyl selector set",
+      "Sparkling flight add-on",
+      "Family-friendly seating",
+    ],
+    price: 3200,
+    capacity: 60,
+    seatsRemaining: 31,
+  },
+  {
+    slug: "bread-and-butter",
+    title: "Bread & Butter Lab",
+    subtitle: "Hands-on sourdough, cultured butter and fermentation basics.",
+    category: "Workshop",
+    date: "2026-09-26",
+    time: "3:00 PM",
+    duration: "3 hours",
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1800&q=90",
+    description:
+      "A small-group workshop with the pastry team covering starter care, dough handling and cultured butter.",
+    highlights: [
+      "Hands-on dough session",
+      "Starter care guide",
+      "Cultured butter tasting",
+      "Take-home starter jar",
+    ],
+    price: 2800,
+    capacity: 18,
+    seatsRemaining: 4,
+  },
+  {
+    slug: "harvest-table",
+    title: "Harvest Table",
+    subtitle: "Growers, produce and the final dinner of the season.",
+    category: "Seasonal",
+    date: "2026-10-03",
+    time: "7:30 PM",
+    duration: "3 hours",
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1800&q=90",
+    description:
+      "An end-of-season dinner focused on growers, vegetables, grains and fire-led cooking.",
+    highlights: [
+      "Grower-led welcome",
+      "8-course tasting",
+      "Vegetable-forward menu",
+      "Optional cellar pairing",
+    ],
+    price: 6400,
+    capacity: 44,
+    seatsRemaining: 0,
+    soldOut: true,
+  },
+];
+
+export function getEvent(slug: string) {
+  return events.find((event) => event.slug === slug);
+}

@@ -1,0 +1,3 @@
+import LuxeShell from "@/components/luxe/LuxeShell";import DirectionsForm from "@/components/visit/DirectionsForm";import LocationMapCard from "@/components/visit/LocationMapCard";import ContactActions from "@/components/visit/ContactActions";
+export const metadata={title:"Directions to LUXE"};
+export default function Page(){return <LuxeShell><section className="px-3 pt-[100px] md:px-5 md:pt-[120px]"><div className="mx-auto max-w-[900px]"><p className="lx-kicker">Getting here</p><h1 className="lx-serif mt-2 text-5xl md:text-7xl">Directions.</h1><div className="mt-6 grid gap-4 lg:grid-cols-2"><DirectionsForm/><LocationMapCard/></div><div className="mt-4"><ContactActions/></div></div></section></LuxeShell>}

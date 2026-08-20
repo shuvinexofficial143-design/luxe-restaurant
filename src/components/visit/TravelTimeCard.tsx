@@ -1,0 +1,2 @@
+import type {VisitPreference} from "@/lib/visit/types";import {travelEstimate} from "@/lib/visit/planner";
+export default function TravelTimeCard({transport}:{transport:VisitPreference["transport"]}){return <div className="rounded-[20px] bg-[#201713] p-4 text-white"><p className="text-[8px] uppercase tracking-[.12em] text-[#efc28b]">Demo travel estimate</p><p className="lx-serif mt-2 text-4xl">{travelEstimate(transport)} min</p><p className="mt-2 text-[10px] text-white/45">Real traffic requires a maps/directions API.</p></div>}

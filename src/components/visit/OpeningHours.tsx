@@ -1,0 +1,2 @@
+import {weeklyHours} from "@/lib/visit/data";
+export default function OpeningHours(){return <div className="rounded-[26px] bg-[#201713] p-5 text-white"><p className="text-[9px] uppercase tracking-[.14em] text-[#efc28b]">Opening hours</p><h2 className="lx-serif mt-2 text-3xl">Plan dinner.</h2><div className="mt-5 divide-y divide-white/10">{weeklyHours.map(x=><div key={x.day} className="flex justify-between gap-4 py-3 text-sm"><span className="text-white/50">{x.day}</span><span>{x.closed?"Closed":`${x.open} – ${x.close}`}</span></div>)}</div></div>}

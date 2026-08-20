@@ -1,0 +1,1 @@
+export default function SkipToContent(){return <a href="#main-content" className="fixed left-3 top-3 z-[200] -translate-y-24 rounded-full bg-[#201713] px-4 py-3 text-[9px] text-white transition focus:translate-y-0">Skip to main content</a>}

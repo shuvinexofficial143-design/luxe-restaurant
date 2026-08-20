@@ -1,0 +1,3 @@
+"use client";
+import type{MouseEvent,ReactNode}from"react";import{useRef}from"react";import{prefersReducedMotion}from"@/lib/polish/motion";
+export default function MagneticCard({children,className=""}:{children:ReactNode;className?:string}){const ref=useRef<HTMLDivElement|null>(null);function move(e:MouseEvent<HTMLDivElement>){if(prefersReducedMotion())return;const n=ref.current;if(!n)return;const r=n.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;n.style.transform=`perspective(900px) rotateX(${-y*3.5}deg) rotateY(${x*4.5}deg) translateY(-2px)`}return <div ref={ref} onMouseMove={move} onMouseLeave={()=>{if(ref.current)ref.current.style.transform=""}} className={`lx-interactive ${className}`}>{children}</div>}

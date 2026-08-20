@@ -1,0 +1,3 @@
+"use client";
+import type { Lang } from "@/lib/concierge/types";
+export default function QuickPrompts({lang,onPick}:{lang:Lang;onPick:(v:string)=>void}){const p=lang==="hi"?["Vegetarian options बताओ","Table कैसे book करूं?","Lamb के साथ wine?","Upcoming events दिखाओ"]:["Show vegetarian options","How do I book a table?","Wine for lamb?","Show upcoming events"];return <div className="flex gap-2 overflow-x-auto pb-1">{p.map(x=><button key={x} type="button" onClick={()=>onPick(x)} className="max-w-[210px] shrink-0 rounded-full border border-[#4a3025]/10 bg-[#fffaf4] px-4 py-3 text-[9px]">{x}</button>)}</div>;}

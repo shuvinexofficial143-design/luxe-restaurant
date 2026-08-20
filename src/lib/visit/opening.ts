@@ -1,0 +1,3 @@
+import {weeklyHours} from "./data";
+function mins(v:string){const [h,m]=v.split(":").map(Number);return h*60+m}
+export function getOpeningStatus(now=new Date()){const i=(now.getDay()+6)%7,t=weeklyHours[i];if(!t||t.closed)return{open:false,label:"Closed today",detail:"No service scheduled.",nextChange:"Check hours"};const cur=now.getHours()*60+now.getMinutes(),o=mins(t.open),c=mins(t.close);if(cur<o)return{open:false,label:"Closed now",detail:`Opens today at ${t.open}`,nextChange:t.open};if(cur>=c)return{open:false,label:"Closed now",detail:"Service has ended for today.",nextChange:"Tomorrow"};const r=c-cur;return{open:true,label:"Open now",detail:`Closes at ${t.close}`,nextChange:`${Math.floor(r/60)}h ${r%60}m left`};}

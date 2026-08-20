@@ -1,0 +1,3 @@
+import LuxeShell from "@/components/luxe/LuxeShell";import VisitPlanner from "@/components/visit/VisitPlanner";
+export const metadata={title:"Visit Planner"};
+export default function Page(){return <LuxeShell><section className="px-3 pt-[100px] md:px-5 md:pt-[120px]"><div className="mx-auto max-w-[1000px]"><p className="lx-kicker">Before you leave</p><h1 className="lx-serif mt-2 text-5xl md:text-7xl">Visit planner.</h1><p className="mt-4 max-w-2xl text-sm leading-7 text-[#75645d]">Choose booking time, travel mode, arrival buffer and parking needs to get a suggested demo leave time.</p><div className="mt-6"><VisitPlanner/></div></div></section></LuxeShell>}

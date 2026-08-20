@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function VisitQuickLinks(){const x=[["Directions","/visit/directions","↗"],["Parking","/visit/parking","P"],["Nearby","/visit/nearby","◎"],["Planner","/visit/planner","◷"]];return <div className="grid grid-cols-2 gap-2 md:grid-cols-4">{x.map(([l,h,i])=><Link key={h} href={h} className="rounded-[20px] border border-[#4a3025]/10 bg-[#fffaf4] p-4"><span className="text-xl text-[#7c241e]">{i}</span><p className="lx-serif mt-2 text-xl">{l}</p></Link>)}</div>}

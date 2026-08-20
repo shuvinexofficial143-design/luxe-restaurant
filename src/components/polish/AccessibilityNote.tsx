@@ -1,0 +1,1 @@
+export default function AccessibilityNote(){return <div className="rounded-[22px] border border-[#4a3025]/10 bg-white/55 p-4"><p className="text-[8px] uppercase text-[#7c241e]">Accessibility</p><p className="mt-2 text-[10px] leading-5 text-[#75645d]">Motion respects reduced-motion, keyboard focus remains visible and mobile controls keep comfortable tap sizes.</p></div>}
