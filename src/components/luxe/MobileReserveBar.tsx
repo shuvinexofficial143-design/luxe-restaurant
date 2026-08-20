@@ -1,2 +1,23 @@
-import Link from"next/link";
-export default function MobileReserveBar(){return <div className="fixed inset-x-3 bottom-[72px] z-[70] md:hidden"><div className="lx-glass grid grid-cols-2 gap-2 rounded-[18px] p-2 shadow-xl"><Link href="/menu" className="lx-tap flex h-11 items-center justify-center rounded-[13px] border border-[#4a3025]/10 text-[8px] uppercase">Menu</Link><Link href="/reservations/live" className="lx-tap flex h-11 items-center justify-center rounded-[13px] bg-[#7c241e] text-[8px] uppercase text-white">Reserve</Link></div></div>}
+
+import Link from "next/link";
+
+export default function MobileReserveBar() {
+  return (
+    <div className="fixed inset-x-3 bottom-[74px] z-[70] md:hidden">
+      <div className="lx-luxury-shell grid grid-cols-2 gap-2 rounded-[18px] p-2">
+        <Link
+          href="/menu"
+          className="flex h-11 items-center justify-center rounded-[13px] border border-[#e7c58f]/12 text-[7px] uppercase tracking-[.12em] text-[#d6c1a4]"
+        >
+          Menu
+        </Link>
+        <Link
+          href="/reservations"
+          className="lx-gold-button flex h-11 items-center justify-center rounded-[13px] text-[7px] uppercase tracking-[.12em]"
+        >
+          Reserve
+        </Link>
+      </div>
+    </div>
+  );
+}
