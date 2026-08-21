@@ -15,7 +15,7 @@ function accentFor(slug: string) {
 
 export default function DishCard({ dish }: { dish: Dish }) {
   const accent = accentFor(dish.slug);
-  const orderHref = `/order/live/item/${dish.slug}`;
+  const orderHref = `/order/item/${dish.slug}`;
 
   return (
     <article className="overflow-hidden rounded-[18px] border border-white/9 bg-[#11100d] shadow-[0_16px_38px_rgba(0,0,0,.24)]">
