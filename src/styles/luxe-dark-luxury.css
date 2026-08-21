@@ -44,6 +44,13 @@ body {
   mask-image: linear-gradient(to bottom, black, transparent 76%);
 }
 
+.lx-color-field{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;opacity:.8}
+.lx-color-blob{position:absolute;width:34vw;height:34vw;min-width:260px;min-height:260px;border-radius:999px;filter:blur(80px);opacity:.12;animation:lx-color-drift 13s ease-in-out infinite alternate}
+.lx-color-blob-a{left:-12%;top:20%;background:#25a7ff}
+.lx-color-blob-b{right:-10%;top:42%;background:#9b5cff;animation-delay:-4s}
+.lx-color-blob-c{left:30%;bottom:-12%;background:#ff5b86;animation-delay:-8s}
+@keyframes lx-color-drift{from{transform:translate3d(-8px,-12px,0) scale(.9)}to{transform:translate3d(28px,24px,0) scale(1.12)}}
+
 .lx-luxury-shell {
   background: rgba(8, 7, 5, .86) !important;
   color: var(--luxe-cream) !important;
@@ -165,8 +172,9 @@ body {
 @media (max-width: 767px) {
   .lx-fire-stage { min-height:56svh; border-radius:28px; }
   .lx-menu-board { min-width:78vw; }
+  .lx-color-blob{width:78vw;height:78vw;opacity:.09;filter:blur(70px)}
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lx-ember,.lx-ribbon,.lx-orbit-glow,.lx-menu-board{animation:none!important}
+  .lx-ember,.lx-ribbon,.lx-orbit-glow,.lx-menu-board,.lx-color-blob{animation:none!important}
 }
