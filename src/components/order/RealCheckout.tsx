@@ -4,7 +4,6 @@ import type { FormEvent } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ServerCartSummary from "./ServerCartSummary";
-import FulfillmentPanel from "./FulfillmentPanel";
 
 type CartLine = {
   item: {
@@ -25,11 +24,7 @@ export default function RealCheckout({
   onQuantity: (slug: string, quantity: number) => void;
 }) {
   const router = useRouter();
-  const [mode, setMode] = useState<"TABLE" | "PICKUP">(
-    initialTable ? "TABLE" : "PICKUP"
-  );
   const [tableNumber, setTableNumber] = useState(initialTable);
-  const [pickupTime, setPickupTime] = useState("ASAP · 25–35 min");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -37,26 +32,25 @@ export default function RealCheckout({
     event.preventDefault();
 
     if (!lines.length) {
-      setMessage("Add at least one dish.");
+      setMessage("पहले कम से कम 1 dish add करें।");
+      return;
+    }
+
+    if (!tableNumber.trim()) {
+      setMessage("Table number डालें।");
       return;
     }
 
     setLoading(true);
     setMessage("");
 
-    const form = new FormData(event.currentTarget);
-
     try {
       const response = await fetch("/api/v1/order-engine/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          guestName: String(form.get("guestName") || ""),
-          phone: String(form.get("phone") || ""),
-          fulfillment: mode,
-          tableNumber: mode === "TABLE" ? tableNumber : "",
-          pickupTime: mode === "PICKUP" ? pickupTime : "",
-          notes: String(form.get("notes") || ""),
+          fulfillment: "TABLE",
+          tableNumber: tableNumber.trim(),
           items: lines.map((line) => ({
             slug: line.item.slug,
             quantity: line.quantity,
@@ -78,76 +72,65 @@ export default function RealCheckout({
 
       if (!response.ok || !payload.ok || !orderId) {
         setMessage(
-          payload.error?.message || "Order could not be created."
+          payload.error?.message ||
+            "Live ordering अभी database connection के बिना unavailable है।"
         );
         return;
       }
 
-      router.push(
-        `/order/live/track/${encodeURIComponent(orderId)}`
-      );
+      router.push(`/order/live/track/${encodeURIComponent(orderId)}`);
     } catch {
-      setMessage("Order request failed.");
+      setMessage("Order request अभी live server तक नहीं पहुंची।");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <aside className="xl:sticky xl:top-[100px] xl:self-start">
+    <aside className="xl:sticky xl:top-[138px] xl:self-start">
       <form
         onSubmit={submit}
-        className="rounded-[28px] bg-[#fffaf4] p-4"
+        className="rounded-[24px] border border-white/10 bg-[linear-gradient(145deg,rgba(31,23,18,.96),rgba(12,10,8,.98))] p-3 text-[#f4eadc] shadow-[0_24px_70px_rgba(0,0,0,.32)]"
       >
-        <p className="lx-kicker">Database checkout</p>
-        <h2 className="lx-serif mt-2 text-3xl">Your order.</h2>
-
-        <div className="mt-4">
-          <ServerCartSummary
-            lines={lines}
-            onQuantity={onQuantity}
-          />
+        <div className="flex items-center justify-between gap-3 px-1 py-1">
+          <div>
+            <p className="text-[7px] uppercase tracking-[.15em] text-[#39c58f]">
+              Table order
+            </p>
+            <h2 className="lx-serif mt-1 text-2xl">Your order</h2>
+          </div>
+          <span className="rounded-full bg-[#39c58f]/12 px-3 py-2 text-[7px] uppercase tracking-[.1em] text-[#55daa4]">
+            Dine in
+          </span>
         </div>
 
         <div className="mt-3">
-          <FulfillmentPanel
-            mode={mode}
-            onMode={setMode}
-            tableNumber={tableNumber}
-            onTableNumber={setTableNumber}
-            pickupTime={pickupTime}
-            onPickupTime={setPickupTime}
-          />
+          <ServerCartSummary lines={lines} onQuantity={onQuantity} />
         </div>
 
-        <input
-          required
-          name="guestName"
-          placeholder="Guest name"
-          className="mt-3 h-11 w-full rounded-[14px] border border-[#4a3025]/10 bg-white px-3 text-sm"
-        />
-        <input
-          required
-          name="phone"
-          placeholder="Phone"
-          className="mt-2 h-11 w-full rounded-[14px] border border-[#4a3025]/10 bg-white px-3 text-sm"
-        />
-        <textarea
-          name="notes"
-          rows={2}
-          placeholder="Allergies / order notes"
-          className="mt-2 w-full rounded-[14px] border border-[#4a3025]/10 bg-white p-3 text-sm"
-        />
+        <label className="mt-3 block rounded-[16px] border border-[#57b8ff]/20 bg-[#57b8ff]/[.055] p-3">
+          <span className="text-[7px] uppercase tracking-[.13em] text-[#62c9ff]">
+            Table number
+          </span>
+          <input
+            required
+            value={tableNumber}
+            onChange={(event) => setTableNumber(event.target.value)}
+            inputMode="numeric"
+            placeholder="Example: 12"
+            className="mt-2 h-11 w-full rounded-[12px] border border-white/10 bg-[#090806] px-3 text-base font-semibold text-white outline-none placeholder:text-white/24 focus:border-[#57b8ff]/45"
+          />
+        </label>
 
         <button
           disabled={loading || !lines.length}
-          className="mt-3 h-12 w-full rounded-[16px] bg-[#7c241e] text-[9px] uppercase tracking-[.12em] text-white disabled:opacity-40"
+          className="mt-3 h-12 w-full rounded-[15px] bg-[linear-gradient(135deg,#39c58f,#49a8da)] text-[8px] font-semibold uppercase tracking-[.12em] text-[#07120e] shadow-[0_12px_32px_rgba(57,197,143,.18)] disabled:cursor-not-allowed disabled:opacity-35"
         >
-          {loading ? "Creating order…" : "Create real order"}
+          {loading ? "Placing order…" : "Place table order"}
         </button>
 
         {message ? (
-          <p className="mt-3 text-[10px] leading-5 text-[#7c241e]">
+          <p className="mt-3 rounded-[12px] border border-[#e5b35f]/15 bg-[#e5b35f]/[.06] p-3 text-[9px] leading-5 text-[#e7c58f]">
             {message}
           </p>
         ) : null}
