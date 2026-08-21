@@ -3,11 +3,11 @@ import { dishes } from "@/lib/menu/data";
 
 const categories = [
   ["Signature", "Chef favourites", "/menu/chef-choice", "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=84"],
-  ["From Fire", "Flame and smoke", "/menu", "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=84"],
+  ["From Fire", "Flame and smoke", "/menu/from-fire", "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=84"],
   ["Vegetarian", "Plant-led plates", "/menu/vegetarian", "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=700&q=84"],
   ["Vegan", "Clean and bright", "/menu/vegan", "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=700&q=84"],
-  ["Desserts", "Sweet finishes", "/menu", "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=700&q=84"],
-  ["Wine", "Pair every plate", "/wine", "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=84"],
+  ["Desserts", "Sweet finishes", "/menu/desserts", "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=700&q=84"],
+  ["Wine", "Pair every plate", "/menu/wine-pairing", "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=84"],
 ] as const;
 
 const featured = dishes.slice(0, 6);
