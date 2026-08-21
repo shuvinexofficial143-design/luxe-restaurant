@@ -1,123 +1,85 @@
 import Link from "next/link";
-import LuxurySectionHeading from "./redesign/LuxurySectionHeading";
+import { dishes } from "@/lib/menu/data";
 
-const banners = [
-  {
-    number: "01",
-    eyebrow: "Signature menu",
-    title: "See tonight's menu",
-    text: "Open dishes, dietary filters, favourites and full dish details on a dedicated page.",
-    href: "/menu",
-    accent: "from-[#3a1b0d] via-[#17100b] to-[#0a0806]",
-    glow: "bg-[#c56f2a]/20",
-  },
-  {
-    number: "02",
-    eyebrow: "Dining experiences",
-    title: "Choose your evening",
-    text: "Chef's table, wine evenings and private dining now open as proper pages.",
-    href: "/experiences",
-    accent: "from-[#1d1710] via-[#0e0c09] to-[#181007]",
-    glow: "bg-[#d7a65e]/14",
-  },
-  {
-    number: "03",
-    eyebrow: "Reservations",
-    title: "Book your table",
-    text: "Go straight into the reservation flow instead of scrolling through the homepage.",
-    href: "/reservations",
-    accent: "from-[#2c130e] via-[#120c09] to-[#090806]",
-    glow: "bg-[#9f4a2c]/18",
-  },
-  {
-    number: "04",
-    eyebrow: "Member access",
-    title: "Your LUXE account",
-    text: "Loyalty, saved dishes, booking history and preferences live on their own dashboard.",
-    href: "/account/secure",
-    accent: "from-[#17130f] via-[#0e0c0a] to-[#080705]",
-    glow: "bg-[#c9944b]/12",
-  },
-];
+const categories = [
+  ["Signature", "Chef favourites", "/menu/chef-choice", "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=84"],
+  ["From Fire", "Flame and smoke", "/menu", "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=84"],
+  ["Vegetarian", "Plant-led plates", "/menu/vegetarian", "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=700&q=84"],
+  ["Vegan", "Clean and bright", "/menu/vegan", "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=700&q=84"],
+  ["Desserts", "Sweet finishes", "/menu", "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=700&q=84"],
+  ["Wine", "Pair every plate", "/wine", "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=84"],
+] as const;
+
+const featured = dishes.slice(0, 6);
 
 export default function HomeSections() {
   return (
-    <section className="px-3 py-7 md:px-5 md:py-12">
-      <div className="mx-auto max-w-[1240px]">
-        <div className="mb-5 flex items-end justify-between gap-4 md:mb-7">
-          <LuxurySectionHeading
-            eyebrow="Explore LUXE"
-            title="Choose a destination."
-            italic="Open a real page."
-            text="The homepage is intentionally short now. Tap once and move into the actual feature instead of flying down a long scrolling page."
-          />
+    <>
+      <section className="px-3 pt-7 md:px-5 md:pt-10">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[7px] uppercase tracking-[.18em] text-[#c9944b]">Browse by menu</p>
+              <h2 className="lx-serif mt-1 text-3xl text-[#f1e3d0] md:text-4xl">What are you craving?</h2>
+            </div>
+            <Link href="/menu" className="text-[7px] uppercase tracking-[.12em] text-[#d3a762]">See all ↗</Link>
+          </div>
+
+          <div className="mt-4 grid grid-cols-3 gap-2 md:grid-cols-6 md:gap-3">
+            {categories.map(([label, note, href, image]) => (
+              <Link key={label} href={href} className="group overflow-hidden rounded-[18px] border border-[#e7c58f]/10 bg-[#100e0b] transition hover:-translate-y-1 hover:border-[#c9944b]/30">
+                <div className="aspect-[4/3] bg-cover bg-center transition duration-500 group-hover:scale-[1.04]" style={{ backgroundImage: `url("${image}")` }} />
+                <div className="p-2.5 md:p-3">
+                  <p className="lx-serif text-[15px] leading-none text-[#f0e0c9] md:text-lg">{label}</p>
+                  <p className="mt-1 truncate text-[7px] text-white/30">{note}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
+      </section>
 
-        <div className="grid gap-3 md:grid-cols-2">
-          {banners.map((banner) => (
-            <Link
-              key={banner.href}
-              href={banner.href}
-              className={`group relative min-h-[170px] overflow-hidden rounded-[26px] border border-[#e7c58f]/12 bg-gradient-to-br ${banner.accent} p-5 shadow-[0_20px_55px_rgba(0,0,0,.22)] transition duration-300 active:scale-[.985] md:min-h-[210px] md:p-7 md:hover:-translate-y-1 md:hover:border-[#c9944b]/38 md:hover:shadow-[0_28px_80px_rgba(0,0,0,.4)]`}
-            >
-              <div
-                className={`absolute -right-14 -top-16 h-52 w-52 rounded-full ${banner.glow} blur-3xl transition duration-500 group-hover:scale-125`}
-              />
-              <div className="absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,rgba(201,148,75,.38),transparent)]" />
+      <section className="px-3 py-9 md:px-5 md:py-14">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[7px] uppercase tracking-[.18em] text-[#c9944b]">Popular tonight</p>
+              <h2 className="lx-serif mt-1 text-3xl text-[#f1e3d0] md:text-4xl">Order your favourites</h2>
+            </div>
+            <Link href="/order/live" className="rounded-full border border-[#e7c58f]/12 px-3 py-2 text-[7px] uppercase tracking-[.1em] text-[#d2aa74]">Start order</Link>
+          </div>
 
-              <div className="relative flex h-full flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-[8px] text-[#8e6c44]">{banner.number}</span>
-                    <span className="h-px w-8 bg-[#c9944b]/45" />
-                    <p className="text-[7px] uppercase tracking-[.22em] text-[#c9944b]">
-                      {banner.eyebrow}
-                    </p>
+          <div className="mt-4 grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-4">
+            {featured.map((dish) => (
+              <article key={dish.slug} className="overflow-hidden rounded-[20px] border border-[#e7c58f]/10 bg-[#100e0b]">
+                <Link href={`/menu/${dish.slug}`} className="block">
+                  <div className="aspect-[1.25/1] bg-cover bg-center" style={{ backgroundImage: `url("${dish.image}")` }} />
+                </Link>
+                <div className="p-3 md:p-4">
+                  <p className="text-[6px] uppercase tracking-[.12em] text-[#9f7d53]">{dish.category}</p>
+                  <div className="mt-1 flex items-start justify-between gap-2">
+                    <Link href={`/menu/${dish.slug}`} className="lx-serif min-w-0 text-lg leading-[1.02] text-[#efe0c9] md:text-xl">{dish.name}</Link>
+                    <span className="lx-serif shrink-0 text-base text-[#d3a15e] md:text-lg">₹{dish.price.toLocaleString("en-IN")}</span>
                   </div>
-
-                  <h2 className="lx-serif mt-4 max-w-md text-[2rem] leading-[.92] tracking-[-.03em] text-[#f2e4d2] md:text-[2.65rem]">
-                    {banner.title}
-                  </h2>
-
-                  <p className="mt-3 max-w-md text-[10px] leading-5 text-white/38 md:text-[11px]">
-                    {banner.text}
-                  </p>
+                  <p className="mt-2 line-clamp-2 text-[8px] leading-4 text-white/32 md:text-[9px]">{dish.description}</p>
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    <Link href={`/menu/${dish.slug}`} className="flex min-h-9 items-center justify-center rounded-[11px] border border-[#e7c58f]/12 text-[6px] uppercase tracking-[.1em] text-[#d7bd99]">Details</Link>
+                    <Link href="/order/live" className="lx-gold-button flex min-h-9 items-center justify-center rounded-[11px] text-[6px] uppercase tracking-[.1em]">Order</Link>
+                  </div>
                 </div>
-
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="text-[7px] uppercase tracking-[.16em] text-[#c49a65]">
-                    Open page
-                  </span>
-                  <span className="grid h-11 w-11 place-items-center rounded-full border border-[#c9944b]/24 bg-black/20 text-lg text-[#d4a25d] transition duration-300 group-hover:bg-[#c9944b] group-hover:text-[#120c07]">
-                    ↗
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
+      </section>
 
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-center">
-          <Link
-            href="/wine"
-            className="rounded-full border border-[#e7c58f]/12 bg-white/[.02] px-4 py-3 text-[7px] uppercase tracking-[.14em] text-[#a98b68] transition hover:border-[#c9944b]/35 hover:text-[#dfbd88]"
-          >
-            Wine cellar ↗
-          </Link>
-          <Link
-            href="/chefs"
-            className="rounded-full border border-[#e7c58f]/12 bg-white/[.02] px-4 py-3 text-[7px] uppercase tracking-[.14em] text-[#a98b68] transition hover:border-[#c9944b]/35 hover:text-[#dfbd88]"
-          >
-            Meet the chefs ↗
-          </Link>
-          <Link
-            href="/location"
-            className="rounded-full border border-[#e7c58f]/12 bg-white/[.02] px-4 py-3 text-[7px] uppercase tracking-[.14em] text-[#a98b68] transition hover:border-[#c9944b]/35 hover:text-[#dfbd88]"
-          >
-            Visit LUXE ↗
-          </Link>
+      <section className="px-3 pb-8 md:px-5 md:pb-12">
+        <div className="mx-auto grid max-w-[1240px] gap-3 md:grid-cols-3">
+          <Link href="/experiences/chefs-table" className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.018] p-4"><p className="lx-serif text-xl text-[#ead9c2]">Chef Table</p><p className="mt-1 text-[8px] text-white/30">Seven-course dining experience.</p></Link>
+          <Link href="/reservations" className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.018] p-4"><p className="lx-serif text-xl text-[#ead9c2]">Reserve</p><p className="mt-1 text-[8px] text-white/30">Choose your table and time.</p></Link>
+          <Link href="/private-dining" className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.018] p-4"><p className="lx-serif text-xl text-[#ead9c2]">Private Dining</p><p className="mt-1 text-[8px] text-white/30">Plan an intimate celebration.</p></Link>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
