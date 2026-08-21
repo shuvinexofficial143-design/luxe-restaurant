@@ -26,23 +26,29 @@ export default function LuxeShell({
       <SkipToContent />
 
       <div className="lx-dark-page">
-        <header className="sticky top-0 z-[90] border-b border-[#e7c58f]/10 bg-[#090806]/95 backdrop-blur-2xl">
-          <div className="border-b border-[#e7c58f]/8 bg-[#0d0b08] px-3 py-1.5 text-center text-[7px] uppercase tracking-[.14em] text-white/38">
-            Dinner delivery after 6 PM · Secure booking · Ujjain
+        <div aria-hidden="true" className="lx-color-field">
+          <i className="lx-color-blob lx-color-blob-a" />
+          <i className="lx-color-blob lx-color-blob-b" />
+          <i className="lx-color-blob lx-color-blob-c" />
+        </div>
+
+        <header className="sticky top-0 z-[90] border-b border-[#e7c58f]/8 bg-[#090806]/92 backdrop-blur-2xl">
+          <div className="border-b border-[#e7c58f]/6 bg-[#0d0b08]/90 px-3 py-[3px] text-center text-[6px] uppercase tracking-[.13em] text-white/30">
+            Dinner after 6 PM · Booking · Ujjain
           </div>
 
-          <div className="mx-auto max-w-[1240px] px-3 py-2 md:px-5">
+          <div className="mx-auto max-w-[1240px] px-3 py-1.5 md:px-5 md:py-2">
             <div className="flex items-center gap-2 md:gap-4">
               <Link
                 href="/"
-                className="lx-serif shrink-0 text-2xl tracking-[.06em] text-[#ead7bb] md:text-3xl"
+                className="lx-serif shrink-0 text-[1.7rem] leading-none tracking-[.06em] text-[#ead7bb] md:text-3xl"
               >
                 LUXE
               </Link>
 
               <Link
                 href="/menu"
-                className="hidden h-11 flex-1 items-center rounded-full border border-[#e7c58f]/12 bg-white/[.035] px-4 text-xs text-white/30 transition hover:border-[#c9944b]/30 md:flex"
+                className="hidden h-10 flex-1 items-center rounded-full border border-[#e7c58f]/10 bg-white/[.03] px-4 text-xs text-white/30 transition hover:border-[#c9944b]/30 md:flex"
               >
                 <span className="mr-2 text-[#c9944b]">⌕</span>
                 Search dishes, ingredients and categories
@@ -57,7 +63,7 @@ export default function LuxeShell({
 
               <Link
                 href="/reservations"
-                className="lx-gold-button ml-auto flex min-h-10 shrink-0 items-center rounded-full px-4 text-[7px] uppercase tracking-[.13em]"
+                className="lx-gold-button ml-auto flex min-h-9 shrink-0 items-center rounded-full px-4 text-[7px] uppercase tracking-[.13em]"
               >
                 Reserve
               </Link>
@@ -65,22 +71,22 @@ export default function LuxeShell({
 
             <Link
               href="/menu"
-              className="mt-2 flex h-10 items-center rounded-full border border-[#e7c58f]/12 bg-white/[.035] px-4 text-[10px] text-white/30 md:hidden"
+              className="mt-1.5 flex h-9 items-center rounded-full border border-[#e7c58f]/10 bg-white/[.03] px-3 text-[10px] text-white/34 md:hidden"
             >
               <span className="mr-2 text-[#c9944b]">⌕</span>
               Search dishes, ingredients...
             </Link>
           </div>
 
-          <nav className="mx-auto flex max-w-[1240px] gap-1 overflow-x-auto px-3 pb-2 md:px-5">
+          <nav className="mx-auto flex max-w-[1240px] gap-1 overflow-x-auto px-3 pb-1.5 md:px-5 md:pb-2">
             {nav.map(([label, href], index) => (
               <Link
                 key={href}
                 href={href}
-                className={`shrink-0 rounded-full px-3 py-2 text-[7px] uppercase tracking-[.1em] transition ${
+                className={`shrink-0 rounded-full px-3 py-1.5 text-[6.5px] uppercase tracking-[.1em] transition ${
                   index === 0
-                    ? "bg-[#c9944b] text-[#120d08]"
-                    : "border border-[#e7c58f]/10 bg-white/[.018] text-white/40 hover:border-[#c9944b]/25 hover:text-[#d8b278]"
+                    ? "bg-[#d49c4b] text-[#120d08]"
+                    : "border border-[#e7c58f]/9 bg-white/[.016] text-white/38 hover:border-[#c9944b]/25 hover:text-[#d8b278]"
                 }`}
               >
                 {label}
