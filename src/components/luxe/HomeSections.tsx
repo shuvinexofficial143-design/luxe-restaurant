@@ -46,26 +46,23 @@ export default function HomeSections() {
               <p className="text-[7px] uppercase tracking-[.18em] text-[#c9944b]">Popular tonight</p>
               <h2 className="lx-serif mt-1 text-3xl text-[#f1e3d0] md:text-4xl">Order your favourites</h2>
             </div>
-            <Link href="/order/live" className="rounded-full border border-[#e7c58f]/12 px-3 py-2 text-[7px] uppercase tracking-[.1em] text-[#d2aa74]">Start order</Link>
+            <Link href="/order/live" className="rounded-full border border-[#e7c58f]/12 px-3 py-2 text-[7px] uppercase tracking-[.1em] text-[#d2aa74]">See all</Link>
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-4">
             {featured.map((dish) => (
               <article key={dish.slug} className="overflow-hidden rounded-[20px] border border-[#e7c58f]/10 bg-[#100e0b]">
-                <Link href={`/menu/${dish.slug}`} className="block">
-                  <div className="aspect-[1.25/1] bg-cover bg-center" style={{ backgroundImage: `url("${dish.image}")` }} />
+                <Link href={`/order/item/${dish.slug}`} className="block">
+                  <div className="aspect-[1.25/1] bg-cover bg-center transition duration-500 hover:scale-[1.025]" style={{ backgroundImage: `url("${dish.image}")` }} />
                 </Link>
                 <div className="p-3 md:p-4">
                   <p className="text-[6px] uppercase tracking-[.12em] text-[#9f7d53]">{dish.category}</p>
                   <div className="mt-1 flex items-start justify-between gap-2">
-                    <Link href={`/menu/${dish.slug}`} className="lx-serif min-w-0 text-lg leading-[1.02] text-[#efe0c9] md:text-xl">{dish.name}</Link>
+                    <Link href={`/order/item/${dish.slug}`} className="lx-serif min-w-0 text-lg leading-[1.02] text-[#efe0c9] md:text-xl">{dish.name}</Link>
                     <span className="lx-serif shrink-0 text-base text-[#d3a15e] md:text-lg">₹{dish.price.toLocaleString("en-IN")}</span>
                   </div>
                   <p className="mt-2 line-clamp-2 text-[8px] leading-4 text-white/32 md:text-[9px]">{dish.description}</p>
-                  <div className="mt-3 grid grid-cols-2 gap-2">
-                    <Link href={`/menu/${dish.slug}`} className="flex min-h-9 items-center justify-center rounded-[11px] border border-[#e7c58f]/12 text-[6px] uppercase tracking-[.1em] text-[#d7bd99]">Details</Link>
-                    <Link href="/order/live" className="lx-gold-button flex min-h-9 items-center justify-center rounded-[11px] text-[6px] uppercase tracking-[.1em]">Order</Link>
-                  </div>
+                  <Link href={`/order/item/${dish.slug}`} className="lx-gold-button mt-3 flex min-h-10 items-center justify-center rounded-[12px] text-[7px] font-bold uppercase tracking-[.11em]">Order</Link>
                 </div>
               </article>
             ))}
