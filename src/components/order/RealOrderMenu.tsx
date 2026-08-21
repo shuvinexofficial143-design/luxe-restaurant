@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { dishes } from "@/lib/menu/data";
-import RealCheckout from "./RealCheckout";
 
 type MenuItem = {
   slug: string;
@@ -11,11 +11,6 @@ type MenuItem = {
   image: string;
   category: string;
   price: number;
-};
-
-type CartLine = {
-  item: MenuItem;
-  quantity: number;
 };
 
 const savedMenu: MenuItem[] = dishes.map((dish) => ({
@@ -33,7 +28,6 @@ export default function RealOrderMenu({
   initialTable?: string;
 }) {
   const [menu, setMenu] = useState<MenuItem[]>(savedMenu);
-  const [cart, setCart] = useState<Record<string, CartLine>>({});
   const [category, setCategory] = useState("All");
   const [syncNote, setSyncNote] = useState(
     "Saved menu prices shown while live database sync is checked."
@@ -44,33 +38,25 @@ export default function RealOrderMenu({
       .then((response) => response.json())
       .then(
         (payload: {
-          ok?: boolean;
           data?: { menu?: MenuItem[] };
         }) => {
           const rows = payload.data?.menu || [];
 
           if (rows.length) {
             setMenu(rows);
-            setSyncNote("Live database menu connected.");
+            setSyncNote("Live menu connected.");
           } else {
-            setSyncNote(
-              "Saved menu is visible. Live order submission needs the database connection."
-            );
+            setSyncNote("Saved menu visible. Final order requires the live database connection.");
           }
         }
       )
       .catch(() =>
-        setSyncNote(
-          "Saved menu is visible. Live order submission needs the database connection."
-        )
+        setSyncNote("Saved menu visible. Final order requires the live database connection.")
       );
   }, []);
 
   const categories = useMemo(
-    () => [
-      "All",
-      ...Array.from(new Set(menu.map((item) => item.category))),
-    ],
+    () => ["All", ...Array.from(new Set(menu.map((item) => item.category)))],
     [menu]
   );
 
@@ -79,80 +65,52 @@ export default function RealOrderMenu({
       ? menu
       : menu.filter((item) => item.category === category);
 
-  const cartLines = Object.values(cart);
-
-  function add(item: MenuItem) {
-    setCart((current) => {
-      const existing = current[item.slug];
-      return {
-        ...current,
-        [item.slug]: {
-          item,
-          quantity: Math.min(20, (existing?.quantity || 0) + 1),
-        },
-      };
-    });
-  }
-
-  function change(slug: string, quantity: number) {
-    setCart((current) => {
-      const next = { ...current };
-
-      if (quantity <= 0) {
-        delete next[slug];
-      } else if (next[slug]) {
-        next[slug] = {
-          ...next[slug],
-          quantity: Math.min(20, quantity),
-        };
-      }
-
-      return next;
-    });
-  }
+  const tableSuffix = initialTable
+    ? `?table=${encodeURIComponent(initialTable)}`
+    : "";
 
   return (
-    <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
-      <div>
-        <div className="flex gap-1.5 overflow-x-auto pb-2">
-          {categories.map((item, index) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setCategory(item)}
-              className={`shrink-0 rounded-full px-3 py-2 text-[7px] uppercase tracking-[.1em] transition ${
-                category === item
-                  ? index % 3 === 0
-                    ? "bg-[#57b8ff] text-[#071018]"
-                    : index % 3 === 1
-                      ? "bg-[#9d7cff] text-[#100b19]"
-                      : "bg-[#39c58f] text-[#06120d]"
-                  : "border border-white/10 bg-white/[.025] text-white/40"
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
+    <div>
+      <div className="flex gap-1.5 overflow-x-auto pb-2">
+        {categories.map((item, index) => (
+          <button
+            key={item}
+            type="button"
+            onClick={() => setCategory(item)}
+            className={`shrink-0 rounded-full px-3 py-2 text-[7px] font-bold uppercase tracking-[.1em] transition ${
+              category === item
+                ? index % 3 === 0
+                  ? "bg-[#57b8ff] text-[#071018]"
+                  : index % 3 === 1
+                    ? "bg-[#9d7cff] text-[#100b19]"
+                    : "bg-[#39c58f] text-[#06120d]"
+                : "border border-white/10 bg-white/[.025] text-white/44"
+            }`}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
 
-        <p className="mt-1 px-1 text-[7px] leading-4 text-white/24">
-          {syncNote}
-        </p>
+      <p className="mt-1 px-1 text-[7px] leading-4 text-white/24">
+        {syncNote}
+      </p>
 
-        <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-3">
-          {visible.map((item, index) => (
+      <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-3">
+        {visible.map((item, index) => {
+          const href = `/order/item/${item.slug}${tableSuffix}`;
+
+          return (
             <article
               key={item.slug}
               className="overflow-hidden rounded-[18px] border border-white/9 bg-[#11100d] shadow-[0_16px_36px_rgba(0,0,0,.22)]"
             >
-              <div
-                className="h-[105px] bg-[#16120e] bg-cover bg-center md:h-[145px]"
-                style={
-                  item.image
-                    ? { backgroundImage: `url("${item.image}")` }
-                    : undefined
-                }
-              />
+              <Link href={href} className="block">
+                <div
+                  className="h-[118px] bg-[#16120e] bg-cover bg-center transition duration-500 active:scale-[.99] md:h-[165px]"
+                  style={item.image ? { backgroundImage: `url("${item.image}")` } : undefined}
+                />
+              </Link>
 
               <div className="p-3">
                 <p
@@ -166,9 +124,11 @@ export default function RealOrderMenu({
                 >
                   {item.category}
                 </p>
-                <h3 className="lx-serif mt-1 line-clamp-2 text-[1.15rem] leading-[.95] text-[#f1e4d2] md:text-xl">
-                  {item.title}
-                </h3>
+                <Link href={href} className="block">
+                  <h3 className="lx-serif mt-1 line-clamp-2 text-[1.15rem] leading-[.95] text-[#f1e4d2] md:text-xl">
+                    {item.title}
+                  </h3>
+                </Link>
                 <p className="mt-2 line-clamp-2 text-[8px] leading-4 text-white/30">
                   {item.excerpt}
                 </p>
@@ -177,32 +137,24 @@ export default function RealOrderMenu({
                   <span className="lx-serif text-lg text-[#e0ac5c]">
                     ₹{item.price.toLocaleString("en-IN")}
                   </span>
-                  <button
-                    type="button"
-                    onClick={() => add(item)}
-                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-lg font-semibold text-[#090806] shadow-lg ${
+                  <Link
+                    href={href}
+                    className={`flex min-h-9 items-center justify-center rounded-[11px] px-4 text-[7px] font-black uppercase tracking-[.1em] text-[#090806] ${
                       index % 3 === 0
                         ? "bg-[#57b8ff]"
                         : index % 3 === 1
                           ? "bg-[#9d7cff]"
                           : "bg-[#39c58f]"
                     }`}
-                    aria-label={`Add ${item.title}`}
                   >
-                    +
-                  </button>
+                    Order
+                  </Link>
                 </div>
               </div>
             </article>
-          ))}
-        </div>
+          );
+        })}
       </div>
-
-      <RealCheckout
-        lines={cartLines}
-        initialTable={initialTable}
-        onQuantity={change}
-      />
     </div>
   );
 }
