@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import AnimatedEmberBackdrop from "./redesign/AnimatedEmberBackdrop";
 import LuxuryGrain from "./redesign/LuxuryGrain";
@@ -15,35 +14,34 @@ export default function HomeHero() {
           <AnimatedEmberBackdrop />
           <LuxuryGrain />
 
-          <div className="relative z-10 grid min-h-[78svh] gap-8 p-5 md:min-h-[760px] md:grid-cols-[1.2fr_.8fr] md:items-end md:p-9 lg:p-12">
+          <div className="relative z-10 grid min-h-[56svh] gap-5 p-5 md:min-h-[560px] md:grid-cols-[1.2fr_.8fr] md:items-end md:p-9 lg:p-12">
             <div className="self-end">
               <HeroBrandMark />
 
-              <h1 className="lx-hero-word lx-serif mt-5 text-[clamp(4rem,17vw,9rem)] leading-[.78] tracking-[-.065em] text-[#f4eadc]">
+              <h1 className="lx-hero-word lx-serif mt-4 text-[clamp(3.45rem,15vw,8rem)] leading-[.79] tracking-[-.065em] text-[#f4eadc]">
                 Fire.
                 <span className="block">Flavour.</span>
                 <span className="block italic text-[#d5a05a]">Elevated.</span>
               </h1>
 
-              <p className="mt-5 max-w-xl text-sm leading-7 text-white/46 md:text-base">
+              <p className="mt-4 max-w-xl text-[13px] leading-6 text-white/46 md:text-base md:leading-7">
                 Modern fire dining with bold seasonal plates, thoughtful wine and
-                a night designed to feel cinematic without feeling formal.
+                a cinematic evening without the stiffness.
               </p>
 
-              <div className="mt-6 max-w-lg">
+              <div className="mt-5 max-w-lg">
                 <MobileActionStrip />
               </div>
 
               <Link
-                href="#explore"
-                className="mt-7 inline-flex items-center gap-3 text-[7px] uppercase tracking-[.22em] text-white/28"
+                href="/experiences"
+                className="mt-4 inline-flex items-center gap-3 rounded-full border border-[#e7c58f]/12 bg-black/20 px-4 py-2.5 text-[7px] uppercase tracking-[.18em] text-[#d6b681] transition hover:border-[#c9944b]/40 hover:bg-[#c9944b]/10"
               >
-                <span className="h-7 w-px bg-[linear-gradient(#c9944b,transparent)]" />
-                Scroll to explore
+                Explore experiences <span aria-hidden="true">↗</span>
               </Link>
             </div>
 
-            <div className="self-end space-y-3 md:justify-self-end md:w-full md:max-w-[360px]">
+            <div className="self-end space-y-2 md:justify-self-end md:w-full md:max-w-[340px]">
               <HeroStats />
               <HeroChefCard />
             </div>
