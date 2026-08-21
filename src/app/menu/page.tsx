@@ -1,54 +1,50 @@
-
 import LuxeShell from "@/components/luxe/LuxeShell";
-import PageHero from "@/components/luxe/PageHero";
 import MenuClient from "@/components/menu/MenuClient";
-import MenuStats from "@/components/menu/MenuStats";
-import MenuHeroActions from "@/components/menu/MenuHeroActions";
-import AllergenNotice from "@/components/menu/AllergenNotice";
-import FloatingMenuDeck from "@/components/luxe/redesign/FloatingMenuDeck";
-import LuxurySectionHeading from "@/components/luxe/redesign/LuxurySectionHeading";
 import { dishes } from "@/lib/menu/data";
 
 export const metadata = {
   title: "Menu · LUXE",
 };
 
+const quick = [
+  ["Chef Choice", "/menu/chef-choice"],
+  ["Vegetarian", "/menu/vegetarian"],
+  ["Vegan", "/menu/vegan"],
+  ["Gluten Free", "/menu/gluten-free"],
+  ["Tasting", "/menu/tasting"],
+  ["Wine Pairing", "/menu/wine-pairing"],
+];
+
 export default function MenuPage() {
   return (
     <LuxeShell>
-      <PageHero
-        eyebrow="Our menu"
-        title="Fire & finesse"
-        text="A premium menu experience with curated signatures, dietary filters, favourites and full dish details."
-        image="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1800&q=82"
-      />
-
-      <section className="px-3 py-8 md:px-5 md:py-14">
+      <section className="px-3 pt-5 md:px-5 md:pt-8">
         <div className="mx-auto max-w-[1240px]">
-          <LuxurySectionHeading
-            eyebrow="Animated menu showcase"
-            title="Tonight's menu"
-            italic="in motion."
-            text="Dark floating boards and compact food moments bring the promo-video feel into the website without filling the page with giant images."
-          />
-          <FloatingMenuDeck />
+          <div className="grid gap-4 rounded-[24px] border border-[#e7c58f]/10 bg-[#0d0b08] p-4 md:grid-cols-[1fr_auto] md:items-end md:p-6">
+            <div>
+              <p className="text-[7px] uppercase tracking-[.18em] text-[#c9944b]">LUXE menu</p>
+              <h1 className="lx-serif mt-1 text-4xl leading-[.9] text-[#f1e3d0] md:text-6xl">Pick a plate.<br /><span className="italic text-[#d5a05a]">Build your evening.</span></h1>
+              <p className="mt-3 max-w-xl text-[10px] leading-5 text-white/34 md:text-xs">Browse compact dish cards, filter by preference and open each item for full details.</p>
+            </div>
+            <div className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.02] px-4 py-3 text-right">
+              <p className="lx-serif text-3xl text-[#d7a762]">{dishes.length}</p>
+              <p className="text-[6px] uppercase tracking-[.12em] text-white/30">dishes available</p>
+            </div>
+          </div>
+
+          <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+            {quick.map(([label, href]) => (
+              <a key={href} href={href} className="shrink-0 rounded-full border border-[#e7c58f]/10 bg-white/[.02] px-3 py-2 text-[7px] uppercase tracking-[.1em] text-white/38">
+                {label}
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="px-3 pb-10 md:px-5 md:pb-16">
+      <section className="px-3 py-5 md:px-5 md:py-8">
         <div className="mx-auto max-w-[1240px]">
-          <div className="rounded-[28px] border border-[#e7c58f]/12 bg-[#0d0b08] p-3 md:p-6">
-            <MenuStats dishes={dishes} />
-            <div className="mt-4">
-              <MenuHeroActions />
-            </div>
-            <div className="mt-4">
-              <AllergenNotice />
-            </div>
-            <div className="mt-6">
-              <MenuClient dishes={dishes} />
-            </div>
-          </div>
+          <MenuClient dishes={dishes} />
         </div>
       </section>
     </LuxeShell>
