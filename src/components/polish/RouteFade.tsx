@@ -1,3 +1,23 @@
 "use client";
-import type{ReactNode}from"react";import{usePathname}from"next/navigation";
-export default function RouteFade({children}:{children:ReactNode}){const p=usePathname();return <div key={p} className="lx-route-enter">{children}</div>}
+
+import type { ReactNode } from "react";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+
+export default function RouteFade({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
+  return (
+    <div key={pathname} className="lx-route-enter">
+      {children}
+    </div>
+  );
+}
