@@ -82,21 +82,41 @@ export async function POST(request: NextRequest) {
       ? await resolveCustomerSession(token).catch(() => null)
       : null;
 
+    const tableNumber =
+      typeof body.tableNumber === "string"
+        ? body.tableNumber.trim().slice(0, 50)
+        : "";
+
+    if (fulfillment === "TABLE" && !tableNumber) {
+      throw new ApiError(
+        "TABLE_NUMBER_REQUIRED",
+        "Table number is required for dine-in ordering.",
+        422
+      );
+    }
+
+    const guestName =
+      fulfillment === "TABLE"
+        ? session?.customer.name || `Table ${tableNumber}`
+        : requireString(body, "guestName", {
+            min: 2,
+            max: 100,
+          });
+
+    const phone =
+      fulfillment === "TABLE"
+        ? session?.customer.phone || "TABLE-ORDER"
+        : requireString(body, "phone", {
+            min: 8,
+            max: 40,
+          });
+
     const order = await createDatabaseOrder({
       customerId: session?.customer.id,
-      guestName: requireString(body, "guestName", {
-        min: 2,
-        max: 100,
-      }),
-      phone: requireString(body, "phone", {
-        min: 8,
-        max: 40,
-      }),
+      guestName,
+      phone,
       fulfillment: fulfillment as "TABLE" | "PICKUP",
-      tableNumber:
-        typeof body.tableNumber === "string"
-          ? body.tableNumber.trim().slice(0, 50)
-          : "",
+      tableNumber,
       pickupTime:
         typeof body.pickupTime === "string"
           ? body.pickupTime.trim().slice(0, 100)
