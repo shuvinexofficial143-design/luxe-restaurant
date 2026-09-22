@@ -5,7 +5,7 @@ const migrations = [
   "003_customer_auth.sql",
   "004_customer_profile_loyalty.sql",
   "005_reservation_engine.sql",
-  "006_order_engine.sql",
+  "006_ordering_kds.sql",
   "007_crm.sql",
   "008_analytics.sql",
   "009_i18n.sql",
