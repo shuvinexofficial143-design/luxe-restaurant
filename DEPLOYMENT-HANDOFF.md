@@ -1,41 +1,45 @@
-# LUXE Restaurant — Final Deployment Handoff
+# LUXE Restaurant — Production Handoff
 
-Batch 48 closes the normal feature-development phase.
+The normal feature-development phase is complete.
 
-## Do not call the project production-ready yet
+## Code verification status
 
-Production readiness requires all of the following to be independently verified:
+The production-readiness branch now verifies all of the following in GitHub Actions:
 
-1. `npm.cmd run lint`
-2. `npx.cmd tsc --noEmit`
-3. `npm.cmd run build`
-4. Required Supabase migrations applied through `015_monitoring_privacy`
-5. Production environment variables configured in Vercel
-6. First admin OWNER bootstrapped once
-7. `LUXE_ADMIN_BOOTSTRAP_SECRET` rotated/removed after bootstrap
-8. Razorpay webhook registered and verified
-9. WhatsApp webhook registered and verified
-10. Resend sending domain/provider configuration verified
-11. `/api/cron/jobs` schedule verified on the actual Vercel deployment
-12. Live HTTP smoke tests pass
+1. Production dependency security audit
+2. ESLint
+3. TypeScript typecheck
+4. Critical route audit
+5. Migration-file audit
+6. Repository secret scan
+7. Next.js production build
 
-## Local final audit
+The application must still NOT be called fully production-ready until the external production services below are configured and verified.
 
-PowerShell:
+## Remaining launch requirements
 
-    npm.cmd run lint; if($LASTEXITCODE -eq 0){ npx.cmd tsc --noEmit }; if($LASTEXITCODE -eq 0){ npm.cmd run build }
+1. Apply Supabase migrations through `015_monitoring_privacy`.
+2. Configure all required production environment variables.
+3. Bootstrap the first admin OWNER once.
+4. Rotate/remove `LUXE_ADMIN_BOOTSTRAP_SECRET` after bootstrap.
+5. Register and verify the Razorpay webhook.
+6. Register and verify the WhatsApp webhook.
+7. Verify the Resend sending domain and sender address.
+8. Verify `/api/cron/jobs` actually executes on the deployed Vercel plan.
+9. Run live HTTP smoke tests against the deployed URL.
+10. Configure real Supabase/provider backups and test recovery.
 
-Optional scripts after compilation is repaired:
+## Local code audit
 
-    node scripts/luxe-route-audit.mjs
-    node scripts/luxe-migration-audit.mjs
-    node scripts/luxe-secret-scan.mjs
+Run:
 
-After the application is running:
+    npm run audit:production
 
-    node scripts/luxe-http-smoke.mjs
+This checks dependencies, lint, TypeScript, routes, migration files, repository secrets and the production build.
 
-Set `LUXE_SMOKE_URL` to test a deployed URL.
+To validate the production environment separately, run:
+
+    npm run audit:env
 
 ## Cron
 
@@ -44,23 +48,29 @@ Set `LUXE_SMOKE_URL` to test a deployed URL.
 The endpoint requires:
 
 - `CRON_SECRET`, or
-- `LUXE_JOB_RUNNER_SECRET` when manually calling it with the matching Bearer token.
+- `LUXE_JOB_RUNNER_SECRET` for an explicitly authorized manual call.
 
-A config file does not prove that a particular Vercel plan executed the cron. Verify the deployed logs.
+A cron configuration file alone does not prove execution. Verify deployed logs.
+
+## Live smoke tests
+
+After deployment:
+
+    node scripts/luxe-http-smoke.mjs
+
+Set `LUXE_SMOKE_URL` to the deployed application URL before running the script.
 
 ## Backups
 
-The application includes sanitized JSON export tools.
-
-They are NOT a substitute for:
+The application includes sanitized JSON export tools, but they are not a replacement for:
 
 - Supabase/provider backups
 - point-in-time recovery
 - offsite backups
 - tested disaster recovery
 
-## Final status
+## Current status
 
-Normal feature batches: complete.
+Code-level production checks are automated and passing on the production-readiness branch.
 
-Next task: consolidated compile/build repair.
+Remaining work is external service configuration, database migration application, OWNER bootstrap and live deployment verification.
