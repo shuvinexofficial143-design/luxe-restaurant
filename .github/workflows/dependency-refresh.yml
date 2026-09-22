@@ -1,0 +1,41 @@
+name: Dependency Refresh
+
+on:
+  push:
+    branches:
+      - fix/production-readiness
+    paths:
+      - .github/workflows/dependency-refresh.yml
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Upgrade vulnerable dependencies
+        run: |
+          npm install --save-exact next@16.3.5 eslint-config-next@16.3.5
+          npm audit fix
+          npm audit --omit=dev --audit-level=high
+
+      - name: Upload refreshed dependency files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-refresh
+          path: |
+            package.json
+            package-lock.json
+          if-no-files-found: error
+          retention-days: 1
