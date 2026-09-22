@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "audit:routes": "node scripts/luxe-route-audit.mjs",
+    "audit:migrations": "node scripts/luxe-migration-audit.mjs",
+    "audit:secrets": "node scripts/luxe-secret-scan.mjs",
+    "audit:production": "npm run lint && npm run typecheck && npm run audit:routes && npm run audit:migrations && npm run audit:secrets && npm run build"
   },
   "dependencies": {
     "framer-motion": "^12.43.0",
