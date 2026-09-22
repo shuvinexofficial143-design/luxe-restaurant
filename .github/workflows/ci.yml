@@ -1,0 +1,52 @@
+name: Luxe CI
+
+on:
+  push:
+    branches:
+      - main
+      - fix/production-readiness
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Route audit
+        run: node scripts/luxe-route-audit.mjs
+
+      - name: Migration audit
+        run: node scripts/luxe-migration-audit.mjs
+
+      - name: Secret scan
+        run: node scripts/luxe-secret-scan.mjs
+
+      - name: Build
+        run: npm run build

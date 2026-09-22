@@ -8,7 +8,7 @@ export const expectedMigrationFiles = [
   "003_customer_auth",
   "004_customer_profile_loyalty",
   "005_reservation_engine",
-  "006_order_engine",
+  "006_ordering_kds",
   "007_crm",
   "008_analytics",
   "009_i18n",

@@ -1,12 +1,8 @@
-const requiredCore = [
+const requiredProduction = [
   "NEXT_PUBLIC_APP_URL",
   "SUPABASE_URL",
   "SUPABASE_SERVICE_ROLE_KEY",
   "LUXE_SESSION_SECRET",
-];
-
-const fullFeature = [
-  "LUXE_JOB_RUNNER_SECRET",
   "CRON_SECRET",
   "RAZORPAY_KEY_ID",
   "RAZORPAY_KEY_SECRET",
@@ -20,18 +16,22 @@ const fullFeature = [
   "WHATSAPP_APP_SECRET",
 ];
 
+const optional = [
+  "LUXE_JOB_RUNNER_SECRET",
+];
+
 function status(name) {
   return process.env[name] ? "SET" : "MISSING";
 }
 
 console.log("LUXE production environment audit\n");
 
-for (const name of requiredCore) {
-  console.log(`[CORE] ${name}: ${status(name)}`);
+for (const name of requiredProduction) {
+  console.log(`[REQUIRED] ${name}: ${status(name)}`);
 }
 
-for (const name of fullFeature) {
-  console.log(`[FEATURE] ${name}: ${status(name)}`);
+for (const name of optional) {
+  console.log(`[OPTIONAL] ${name}: ${status(name)}`);
 }
 
 if (process.env.LUXE_ADMIN_BOOTSTRAP_SECRET) {
@@ -40,15 +40,15 @@ if (process.env.LUXE_ADMIN_BOOTSTRAP_SECRET) {
   );
 }
 
-const missingCore = requiredCore.filter(
+const missing = requiredProduction.filter(
   (name) => !process.env[name]
 );
 
-if (missingCore.length) {
+if (missing.length) {
   console.error(
-    `\nCore production environment incomplete: ${missingCore.join(", ")}`
+    `\nProduction environment incomplete: ${missing.join(", ")}`
   );
   process.exit(1);
 }
 
-console.log("\nCore production environment: READY");
+console.log("\nProduction environment: READY");
