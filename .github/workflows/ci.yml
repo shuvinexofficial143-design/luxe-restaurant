@@ -3,6 +3,7 @@ name: Luxe CI
 on:
   push:
     branches:
+      - main
       - fix/production-readiness
   pull_request:
     branches:
