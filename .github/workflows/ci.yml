@@ -35,5 +35,14 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
+      - name: Route audit
+        run: node scripts/luxe-route-audit.mjs
+
+      - name: Migration audit
+        run: node scripts/luxe-migration-audit.mjs
+
+      - name: Secret scan
+        run: node scripts/luxe-secret-scan.mjs
+
       - name: Build
         run: npm run build
