@@ -27,37 +27,57 @@ export const productionEnvironment = [
   {
     key: "CRON_SECRET",
     label: "Vercel cron authorization secret",
-    required: false,
+    required: true,
   },
   {
     key: "RAZORPAY_KEY_ID",
     label: "Razorpay merchant key",
-    required: false,
+    required: true,
   },
   {
     key: "RAZORPAY_KEY_SECRET",
     label: "Razorpay merchant secret",
-    required: false,
+    required: true,
   },
   {
     key: "RAZORPAY_WEBHOOK_SECRET",
     label: "Razorpay webhook secret",
-    required: false,
+    required: true,
+  },
+  {
+    key: "NEXT_PUBLIC_RAZORPAY_KEY_ID",
+    label: "Razorpay public checkout key",
+    required: true,
   },
   {
     key: "RESEND_API_KEY",
     label: "Resend API key",
-    required: false,
+    required: true,
+  },
+  {
+    key: "LUXE_EMAIL_FROM",
+    label: "Verified email sender",
+    required: true,
   },
   {
     key: "WHATSAPP_ACCESS_TOKEN",
     label: "WhatsApp access token",
-    required: false,
+    required: true,
+  },
+  {
+    key: "WHATSAPP_PHONE_NUMBER_ID",
+    label: "WhatsApp phone number ID",
+    required: true,
+  },
+  {
+    key: "WHATSAPP_VERIFY_TOKEN",
+    label: "WhatsApp webhook verify token",
+    required: true,
   },
   {
     key: "WHATSAPP_APP_SECRET",
     label: "WhatsApp app secret",
-    required: false,
+    required: true,
   },
 ] as const;
 
