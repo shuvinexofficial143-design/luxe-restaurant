@@ -13,7 +13,7 @@ export default function OrderPaymentCard({
 }) {
   return (
     <div className="rounded-[22px] bg-[#7c241e] p-5 text-white">
-      <p className="text-[8px] uppercase tracking-[.1em] text-[#ffd0aa]">
+      <p className="text-[10px] uppercase tracking-[.1em] text-[#ffd0aa]">
         Payment
       </p>
       <p className="lx-serif mt-2 text-3xl">
@@ -22,7 +22,7 @@ export default function OrderPaymentCard({
           "en-IN"
         )}
       </p>
-      <p className="mt-2 text-[9px] uppercase tracking-[.09em] text-white/55">
+      <p className="mt-2 text-[10px] uppercase tracking-[.09em] text-white/64">
         {paymentStatus}
       </p>
 
@@ -35,7 +35,7 @@ export default function OrderPaymentCard({
           />
         </div>
       ) : (
-        <div className="mt-4 rounded-[14px] bg-white/[.08] p-3 text-[9px] text-white/70">
+        <div className="mt-4 rounded-[14px] bg-white/[.08] p-3 text-[10px] text-white/70">
           Payment recorded as PAID.
         </div>
       )}
