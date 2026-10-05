@@ -36,8 +36,8 @@ export default function PaymentDemo({
               : "border-[#4a3025]/10"
           }`}
         >
-          <p className="text-sm font-medium">Demo card</p>
-          <p className="mt-1 text-[10px] text-[#75645d]">UI simulation only.</p>
+          <p className="text-sm font-medium">Card payment</p>
+          <p className="mt-1 text-[10px] text-[#75645d]">Online payment preview.</p>
         </button>
       </div>
 
@@ -47,10 +47,10 @@ export default function PaymentDemo({
             disabled
             value="4242 4242 4242 4242"
             className="h-11 rounded-[14px] border border-[#4a3025]/10 bg-white px-3 text-sm text-[#75645d]"
-            aria-label="Demo card number"
+            aria-label="Card number preview"
           />
           <p className="text-[9px] leading-5 text-[#75645d]">
-            No real card data is collected or charged in this portfolio demo.
+            Card entry is shown as a preview only; no card details are collected on this screen.
           </p>
         </div>
       ) : null}
