@@ -33,7 +33,7 @@ export default function AdminOverview() {
     {
       label: "Orders",
       value: String(analytics.orders),
-      detail: `${formatAdminMoney(analytics.orderRevenue)} demo value`,
+      detail: `${formatAdminMoney(analytics.orderRevenue)} value`,
       href: "/admin/orders",
     },
     {
@@ -53,19 +53,19 @@ export default function AdminOverview() {
       value: analytics.averageRating
         ? analytics.averageRating.toFixed(1)
         : "—",
-      detail: `${analytics.reviews} browser reviews`,
+      detail: `${analytics.reviews} reviews`,
       href: "/admin/reviews",
     },
     {
       label: "Gift cards",
       value: String(analytics.gifts),
-      detail: `${formatAdminMoney(analytics.giftValue)} demo sales`,
+      detail: `${formatAdminMoney(analytics.giftValue)} sales`,
       href: "/admin/gifts",
     },
     {
       label: "Career applications",
       value: String(analytics.careerApplications),
-      detail: "Local application records",
+      detail: "Career applications",
       href: "/admin/careers",
     },
     {
@@ -79,7 +79,7 @@ export default function AdminOverview() {
   return (
     <div className="mx-auto max-w-[1320px]">
       <div className="rounded-[28px] bg-[#201713] p-6 text-white md:p-8">
-        <p className="text-[9px] uppercase tracking-[.15em] text-[#efc28b]">
+        <p className="text-[10px] uppercase tracking-[.15em] text-[#efc28b]">
           Operations snapshot
         </p>
         <h2 className="lx-serif mt-2 text-4xl md:text-6xl">
