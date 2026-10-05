@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "https://luxe-restaurant.example.com"
   ).replace(/\/$/, "");
 
-  const staticPaths = [
+  const rootPaths = [
     "",
     "/menu",
     "/reservations",
@@ -20,17 +20,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/contact",
     "/location",
     "/about",
+    "/chefs",
     "/private-dining",
+    "/wine",
+    "/tour",
   ];
 
+  const rootEntries = rootPaths.map((path) => ({
+    url: `${site}${path}`,
+    lastModified: new Date(),
+    changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),
+    priority: path === "" ? 1 : 0.7,
+  }));
+
+  const localizedPaths = ["", "/menu", "/reservations", "/visit"];
   const locales = ["en", "hi"] as const;
 
-  const staticEntries = staticPaths.flatMap((path) =>
+  const localizedEntries = localizedPaths.flatMap((path) =>
     locales.map((locale) => ({
       url: `${site}/${locale}${path}`,
       lastModified: new Date(),
       changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),
-      priority: path === "" ? 1 : 0.7,
+      priority: path === "" ? 0.8 : 0.6,
     }))
   );
 
@@ -60,5 +71,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     dynamicEntries = [];
   }
 
-  return [...staticEntries, ...dynamicEntries];
+  return [...rootEntries, ...localizedEntries, ...dynamicEntries];
 }
