@@ -46,9 +46,9 @@ body {
 
 .lx-color-field{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;opacity:.8}
 .lx-color-blob{position:absolute;width:34vw;height:34vw;min-width:260px;min-height:260px;border-radius:999px;filter:blur(80px);opacity:.12;animation:lx-color-drift 13s ease-in-out infinite alternate}
-.lx-color-blob-a{left:-12%;top:20%;background:#25a7ff}
-.lx-color-blob-b{right:-10%;top:42%;background:#9b5cff;animation-delay:-4s}
-.lx-color-blob-c{left:30%;bottom:-12%;background:#ff5b86;animation-delay:-8s}
+.lx-color-blob-a{left:-12%;top:20%;background:#b67831}
+.lx-color-blob-b{right:-10%;top:42%;background:#7c241e;animation-delay:-4s}
+.lx-color-blob-c{left:30%;bottom:-12%;background:#d5a05a;animation-delay:-8s}
 @keyframes lx-color-drift{from{transform:translate3d(-8px,-12px,0) scale(.9)}to{transform:translate3d(28px,24px,0) scale(1.12)}}
 
 .lx-luxury-shell {
@@ -172,7 +172,16 @@ body {
 @media (max-width: 767px) {
   .lx-fire-stage { min-height:56svh; border-radius:28px; }
   .lx-menu-board { min-width:78vw; }
-  .lx-color-blob{width:78vw;height:78vw;opacity:.09;filter:blur(70px)}
+  .lx-color-blob{width:72vw;height:72vw;opacity:.06;filter:blur(64px);animation-duration:18s}
+  .lx-orbit-glow{display:none}
+  .lx-ember:nth-of-type(n+10){display:none}
+}
+
+html[data-save-data="true"] .lx-color-blob,
+html[data-save-data="true"] .lx-ember,
+html[data-save-data="true"] .lx-ribbon,
+html[data-save-data="true"] .lx-orbit-glow{
+  display:none!important;
 }
 
 @media (prefers-reduced-motion: reduce) {
