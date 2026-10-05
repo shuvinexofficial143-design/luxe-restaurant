@@ -116,7 +116,7 @@ export default function SiteFooter() {
           <p>© 2026 {site.legalName} All rights reserved.</p>
           <p className="flex items-center gap-2">
             <Diamond width={7} height={7} className="text-gold-500" />
-            Michelin Guide 2026 · One Star
+            Modern fire dining · Indore
           </p>
         </div>
       </div>
