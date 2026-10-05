@@ -51,6 +51,11 @@ const contentChecks = [
     "src/app/api/v1/reservations/route.ts",
     "reference",
   ],
+  [
+    "shared admin session gate",
+    "src/components/admin/AdminShell.tsx",
+    "requireAdminPagePermission",
+  ],
 ];
 
 let failures = 0;
