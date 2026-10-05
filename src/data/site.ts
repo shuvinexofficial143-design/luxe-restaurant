@@ -22,7 +22,7 @@ export const site = {
     { days: "Saturday", time: "Lunch 12:00 — 15:00 · Dinner 18:00 — 23:30" },
     { days: "Sunday", time: "Lunch 11:30 — 15:00 · Dinner 18:00 — 22:30" },
   ],
-  socials: [],
+  socials: [] as Array<{ label: string; href: string }>,
   nav: [
     { label: "Menu", href: "/menu" },
     { label: "Experiences", href: "/experiences" },
