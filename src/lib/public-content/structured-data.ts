@@ -1,15 +1,60 @@
 import type { PublicContentItem } from "./types";
 import { publicSiteUrl } from "./seo";
+import { restaurantLocation, weeklyHours } from "@/lib/visit/data";
+
+const dayMap: Record<string, string> = {
+  Monday: "Monday",
+  Tuesday: "Tuesday",
+  Wednesday: "Wednesday",
+  Thursday: "Thursday",
+  Friday: "Friday",
+  Saturday: "Saturday",
+  Sunday: "Sunday",
+};
 
 export function restaurantStructuredData() {
+  const base = publicSiteUrl();
+
   return {
     "@context": "https://schema.org",
     "@type": "Restaurant",
-    name: "LUXE Restaurant",
-    url: publicSiteUrl(),
+    name: restaurantLocation.name,
+    url: base,
+    image:
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=90",
+    description:
+      "Contemporary fine dining in Vijay Nagar, Indore, shaped by open fire, seasonal produce and warm hospitality.",
     servesCuisine: ["Modern Indian", "Contemporary"],
     priceRange: "₹₹₹",
+    telephone: restaurantLocation.phoneDisplay,
+    email: restaurantLocation.email,
     acceptsReservations: true,
+    hasMenu: `${base}/menu`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: restaurantLocation.addressLine1,
+      addressLocality: "Indore",
+      addressRegion: "Madhya Pradesh",
+      postalCode: "452010",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: restaurantLocation.latitude,
+      longitude: restaurantLocation.longitude,
+    },
+    openingHoursSpecification: weeklyHours
+      .filter((item) => !item.closed)
+      .map((item) => ({
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: dayMap[item.day] || item.day,
+        opens: item.open,
+        closes: item.close,
+      })),
+    potentialAction: {
+      "@type": "ReserveAction",
+      target: `${base}/reservations`,
+    },
   };
 }
 
@@ -61,6 +106,14 @@ export function eventStructuredData(item: PublicContentItem) {
     location: {
       "@type": "Place",
       name: "LUXE Restaurant",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: restaurantLocation.addressLine1,
+        addressLocality: "Indore",
+        addressRegion: "Madhya Pradesh",
+        postalCode: "452010",
+        addressCountry: "IN",
+      },
     },
   };
 }
