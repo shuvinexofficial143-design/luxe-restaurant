@@ -44,7 +44,7 @@ export default function CategoryMenuPage({
             />
             <div className="relative">
               <p
-                className="text-[7px] font-bold uppercase tracking-[.18em]"
+                className="text-[10px] font-bold uppercase tracking-[.18em]"
                 style={{ color: accent }}
               >
                 {eyebrow}
@@ -52,7 +52,7 @@ export default function CategoryMenuPage({
               <h1 className="lx-serif mt-2 max-w-3xl text-[2.45rem] leading-[.9] text-[#f2e6d5] md:text-6xl">
                 {title}
               </h1>
-              <p className="mt-3 max-w-xl text-[9px] leading-5 text-white/35 md:text-xs md:leading-6">
+              <p className="mt-3 max-w-xl text-[13px] leading-6 text-white/54 md:text-sm md:leading-7">
                 {text}
               </p>
             </div>
@@ -65,7 +65,7 @@ export default function CategoryMenuPage({
                 <Link
                   key={href}
                   href={href}
-                  className="shrink-0 rounded-full border px-3 py-2 text-[7px] font-bold uppercase tracking-[.09em] transition"
+                  className="shrink-0 rounded-full border px-3 py-2 text-[10px] font-bold uppercase tracking-[.09em] transition"
                   style={
                     active
                       ? {
@@ -91,7 +91,7 @@ export default function CategoryMenuPage({
           </div>
 
           {!dishes.length ? (
-            <div className="mt-4 rounded-[20px] border border-white/8 bg-white/[.02] p-5 text-center text-xs text-white/35">
+            <div className="mt-4 rounded-[20px] border border-white/8 bg-white/[.02] p-5 text-center text-sm text-white/50">
               No dishes are currently listed in this collection.
             </div>
           ) : null}
