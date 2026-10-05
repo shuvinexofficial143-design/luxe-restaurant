@@ -1,11 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Dish } from "@/lib/menu/types";
 
 const accents = [
-  { button: "bg-[#57b8ff]", text: "text-[#62c9ff]" },
-  { button: "bg-[#9d7cff]", text: "text-[#ae93ff]" },
-  { button: "bg-[#39c58f]", text: "text-[#55daa4]" },
-  { button: "bg-[#ff6f91]", text: "text-[#ff86a1]" },
+  { button: "bg-[#d9ad70]", text: "text-[#d9ad70]" },
+  { button: "bg-[#c49358]", text: "text-[#d7b07a]" },
+  { button: "bg-[#c9a56e]", text: "text-[#d5b582]" },
+  { button: "bg-[#b98d58]", text: "text-[#d3ab78]" },
 ] as const;
 
 function accentFor(slug: string) {
@@ -15,65 +16,78 @@ function accentFor(slug: string) {
 
 export default function DishCard({ dish }: { dish: Dish }) {
   const accent = accentFor(dish.slug);
-  const orderHref = `/order/item/${dish.slug}`;
+  const detailHref = `/menu/${dish.slug}`;
 
   return (
-    <article className="overflow-hidden rounded-[18px] border border-white/9 bg-[#11100d] shadow-[0_16px_38px_rgba(0,0,0,.24)]">
-      <Link href={orderHref} className="block overflow-hidden">
-        <div
-          className="aspect-[1.22/1] bg-[#16120e] bg-cover bg-center transition duration-500 hover:scale-[1.025]"
-          style={{ backgroundImage: `url("${dish.image}")` }}
-        />
+    <article className="overflow-hidden rounded-[20px] border border-[#e7c58f]/10 bg-[#11100d] shadow-[0_16px_38px_rgba(0,0,0,.24)]">
+      <Link href={detailHref} className="group block overflow-hidden">
+        <div className="relative aspect-[1.22/1] overflow-hidden bg-[#16120e]">
+          <Image
+            src={dish.image}
+            alt={dish.name}
+            fill
+            sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+            className="object-cover transition duration-500 group-hover:scale-[1.035]"
+          />
+        </div>
       </Link>
 
-      <div className="p-3 md:p-4">
-        <p className={`text-[6px] uppercase tracking-[.12em] ${accent.text}`}>
+      <div className="p-4">
+        <p className={`text-[9px] uppercase tracking-[.12em] ${accent.text}`}>
           {dish.category}
         </p>
 
         <div className="mt-1 flex items-start justify-between gap-2">
           <Link
-            href={orderHref}
-            className="lx-serif min-w-0 text-[1.15rem] leading-[.98] text-[#f1e4d2] md:text-xl"
+            href={detailHref}
+            className="lx-serif min-w-0 text-xl leading-[.98] text-[#f1e4d2] md:text-2xl"
           >
             {dish.name}
           </Link>
-          <span className="lx-serif shrink-0 text-base text-[#e0ac5c] md:text-lg">
+          <span className="lx-serif shrink-0 text-lg text-[#e0ac5c] md:text-xl">
             ₹{dish.price.toLocaleString("en-IN")}
           </span>
         </div>
 
-        <p className="mt-2 line-clamp-2 text-[8px] leading-4 text-white/31 md:text-[9px]">
+        <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-white/48">
           {dish.description}
         </p>
 
-        <div className="mt-2 flex flex-wrap gap-1">
+        <div className="mt-3 flex flex-wrap gap-1.5">
           {dish.chefChoice ? (
-            <span className="rounded-full bg-[#c9944b]/12 px-2 py-1 text-[6px] uppercase text-[#ddb573]">
+            <span className="rounded-full bg-[#c9944b]/12 px-2.5 py-1.5 text-[8px] uppercase text-[#ddb573]">
               Chef
             </span>
           ) : null}
           {dish.bestseller ? (
-            <span className="rounded-full bg-white/[.045] px-2 py-1 text-[6px] uppercase text-white/42">
+            <span className="rounded-full bg-white/[.045] px-2.5 py-1.5 text-[8px] uppercase text-white/56">
               Popular
             </span>
           ) : null}
           {dish.dietary.slice(0, 1).map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-white/8 px-2 py-1 text-[6px] uppercase text-white/28"
+              className="rounded-full border border-white/8 px-2.5 py-1.5 text-[8px] uppercase text-white/48"
             >
               {tag}
             </span>
           ))}
         </div>
 
-        <Link
-          href={orderHref}
-          className={`${accent.button} mt-3 flex min-h-10 w-full items-center justify-center rounded-[12px] text-[7px] font-bold uppercase tracking-[.11em] text-[#080706] shadow-[0_10px_24px_rgba(0,0,0,.2)] transition active:scale-[.98]`}
-        >
-          Order
-        </Link>
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <Link
+            href={detailHref}
+            className="flex min-h-11 items-center justify-center rounded-[12px] border border-[#e7c58f]/14 text-[9px] font-semibold uppercase tracking-[.1em] text-[#dfc59f]"
+          >
+            View
+          </Link>
+          <Link
+            href="/order"
+            className={`${accent.button} flex min-h-11 items-center justify-center rounded-[12px] text-[9px] font-bold uppercase tracking-[.1em] text-[#100c08] shadow-[0_10px_24px_rgba(0,0,0,.2)] transition active:scale-[.98]`}
+          >
+            Order
+          </Link>
+        </div>
       </div>
     </article>
   );
