@@ -23,7 +23,7 @@ export default function HomeHero() {
               <div className="flex items-center gap-2">
                 <span className="h-px w-7 bg-[#c9944b]/55" />
                 <p className="text-[7px] uppercase tracking-[.2em] text-[#d4a765]">
-                  Modern fire dining · Ujjain
+                  Modern fire dining · Indore
                 </p>
               </div>
 
@@ -33,7 +33,7 @@ export default function HomeHero() {
               </h1>
 
               <p className="mt-3 max-w-lg text-[11px] leading-5 text-white/50 md:text-sm md:leading-6">
-                Order signature plates, explore tasting menus or reserve your table — all from one compact restaurant storefront.
+                Explore signature plates, seasonal tasting menus and a table shaped around fire, season and warm hospitality.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">
