@@ -179,7 +179,7 @@ export default function RealReservationForm() {
       }
 
       router.push(
-        `/reservations/live/confirmation/${encodeURIComponent(
+        `/reservations/confirmation/${encodeURIComponent(
           reservationId
         )}`
       );
@@ -198,13 +198,13 @@ export default function RealReservationForm() {
     <div className="space-y-4">
       <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
         <div className="rounded-[28px] bg-[#fffaf4] p-5">
-          <p className="lx-kicker">Real reservation search</p>
+          <p className="lx-kicker">Find a table</p>
           <h2 className="lx-serif mt-2 text-4xl">
-            Find a live table.
+            Check availability.
           </h2>
 
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            <label className="grid gap-2 text-[8px] uppercase tracking-[.1em] text-[#7c241e]">
+            <label className="grid gap-2 text-[10px] uppercase tracking-[.1em] text-[#7c241e]">
               Date
               <input
                 type="date"
@@ -214,7 +214,7 @@ export default function RealReservationForm() {
               />
             </label>
 
-            <label className="grid gap-2 text-[8px] uppercase tracking-[.1em] text-[#7c241e]">
+            <label className="grid gap-2 text-[10px] uppercase tracking-[.1em] text-[#7c241e]">
               Guests
               <select
                 value={guests}
@@ -233,7 +233,7 @@ export default function RealReservationForm() {
               </select>
             </label>
 
-            <label className="grid gap-2 text-[8px] uppercase tracking-[.1em] text-[#7c241e]">
+            <label className="grid gap-2 text-[10px] uppercase tracking-[.1em] text-[#7c241e]">
               Area
               <select
                 value={area}
@@ -251,9 +251,9 @@ export default function RealReservationForm() {
             type="button"
             onClick={() => void checkAvailability()}
             disabled={loading}
-            className="mt-4 h-12 w-full rounded-[16px] bg-[#7c241e] text-[9px] uppercase tracking-[.12em] text-white disabled:opacity-50"
+            className="mt-4 h-12 w-full rounded-[16px] bg-[#7c241e] text-[10px] uppercase tracking-[.12em] text-white disabled:opacity-50"
           >
-            {loading ? "Checking…" : "Check live availability"}
+            {loading ? "Checking…" : "Check availability"}
           </button>
         </div>
 
@@ -285,7 +285,7 @@ export default function RealReservationForm() {
             type="button"
             onClick={() => void holdTable()}
             disabled={!time || loading}
-            className="h-14 rounded-[18px] bg-[#335f50] text-[9px] uppercase tracking-[.12em] text-white disabled:opacity-40"
+            className="h-14 rounded-[18px] bg-[#335f50] text-[10px] uppercase tracking-[.12em] text-white disabled:opacity-40"
           >
             Hold selected table for 8 minutes
           </button>
@@ -319,7 +319,7 @@ export default function RealReservationForm() {
               ].map(([label, name, type]) => (
                 <label
                   key={name}
-                  className="grid gap-2 text-[8px] uppercase tracking-[.1em] text-[#7c241e]"
+                  className="grid gap-2 text-[10px] uppercase tracking-[.1em] text-[#7c241e]"
                 >
                   {label}
                   <input
@@ -341,7 +341,7 @@ export default function RealReservationForm() {
 
             <button
               disabled={loading}
-              className="mt-4 h-12 w-full rounded-[16px] bg-[#7c241e] text-[9px] uppercase tracking-[.12em] text-white disabled:opacity-50"
+              className="mt-4 h-12 w-full rounded-[16px] bg-[#7c241e] text-[10px] uppercase tracking-[.12em] text-white disabled:opacity-50"
             >
               {loading ? "Confirming…" : "Confirm reservation"}
             </button>
