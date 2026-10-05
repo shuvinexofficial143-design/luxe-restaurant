@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://luxe-restaurant.example.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://luxe-restaurant.example.com"),
   title: {
     default: "LUXE — Fine Dining",
     template: "%s · LUXE",
