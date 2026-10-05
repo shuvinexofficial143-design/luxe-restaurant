@@ -11,7 +11,7 @@ export default function RealOrderTracker({
   orderId: string;
 }) {
   const [details, setDetails] = useState<OrderDetails | null>(null);
-  const [message, setMessage] = useState("Loading live order…");
+  const [message, setMessage] = useState("Loading your order…");
 
   const load = useCallback(async () => {
     try {
@@ -69,11 +69,11 @@ export default function RealOrderTracker({
     <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
       <div>
         <div className="rounded-[28px] bg-[#201713] p-6 text-white">
-          <p className="text-[9px] uppercase tracking-[.14em] text-[#efc28b]">
-            Live order
+          <p className="text-[10px] uppercase tracking-[.14em] text-[#efc28b]">
+            Order status
           </p>
           <h1 className="lx-serif mt-2 text-5xl">{order.id}</h1>
-          <p className="mt-3 text-sm text-white/50">
+          <p className="mt-3 text-sm text-white/58">
             {order.fulfillment === "TABLE"
               ? `Table ${order.table_number || "—"}`
               : `Pickup · ${order.pickup_time || "ASAP"}`}
@@ -92,7 +92,7 @@ export default function RealOrderTracker({
                   <p className="lx-serif text-xl">
                     {item.quantity}× {item.title}
                   </p>
-                  <p className="mt-1 text-[8px] uppercase tracking-[.08em] text-[#8a756b]">
+                  <p className="mt-1 text-[10px] uppercase tracking-[.08em] text-[#8a756b]">
                     {item.station} · {item.item_status}
                   </p>
                 </div>
@@ -123,13 +123,13 @@ export default function RealOrderTracker({
         />
 
         <div className="rounded-[22px] bg-[#335f50] p-5 text-white">
-          <p className="text-[8px] uppercase tracking-[.1em] text-[#efc99a]">
-            Server total
+          <p className="text-[10px] uppercase tracking-[.1em] text-[#efc99a]">
+            Order total
           </p>
           <p className="lx-serif mt-2 text-4xl">
             ₹{Number(order.total).toLocaleString("en-IN")}
           </p>
-          <div className="mt-4 text-[9px] leading-5 text-white/50">
+          <div className="mt-4 text-[10px] leading-5 text-white/50">
             <p>
               Subtotal ₹
               {Number(order.subtotal).toLocaleString("en-IN")}
