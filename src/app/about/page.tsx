@@ -1,7 +1,10 @@
+import Image from "next/image";
 import LuxeShell from "@/components/luxe/LuxeShell";
 import PageHero from "@/components/luxe/PageHero";
 import Reveal from "@/components/luxe/Reveal";
 import EditorialBand from "@/components/luxe/EditorialBand";
+
+export const metadata = { title: "About LUXE", description: "The story, sourcing philosophy and culinary approach behind LUXE Restaurant in Indore." };
 
 export default function AboutPage() {
   const timeline = [
@@ -40,11 +43,16 @@ export default function AboutPage() {
           </Reveal>
         </div>
 
-        <div className="lx-container mt-20 grid overflow-hidden bg-[#24493f] text-white lg:grid-cols-[1.1fr_.9fr]">
-          <div
-            className="min-h-[620px] bg-cover bg-center"
-            style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1500&q=90")' }}
-          />
+        <div className="lx-container mt-20 grid overflow-hidden rounded-[30px] border border-[#e7c58f]/10 bg-[#24493f] text-white lg:grid-cols-[1.1fr_.9fr]">
+          <div className="relative min-h-[520px] md:min-h-[620px]">
+            <Image
+              src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1500&q=88"
+              alt="LUXE kitchen team preparing service"
+              fill
+              sizes="(max-width: 1023px) 100vw, 55vw"
+              className="object-cover"
+            />
+          </div>
           <div className="flex items-center p-8 md:p-14">
             <blockquote className="lx-serif text-4xl leading-tight md:text-6xl">
               “Good dining is not theatre performed at you. It is a room, a team and a meal moving together.”
