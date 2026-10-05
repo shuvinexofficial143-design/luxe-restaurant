@@ -1,10 +1,12 @@
+import { NextRequest } from "next/server";
 import { apiFailure, apiSuccess } from "@/lib/server/api/response";
 import { getRequestId } from "@/lib/server/security/request-id";
+import { requireAdminPermission } from "@/lib/server/security/admin-guard";
 import { checkMemoryRateLimit } from "@/lib/server/security/rate-limit";
 import { supabaseAudit } from "@/lib/server/supabase/audit";
 import { ApiError } from "@/lib/server/api/errors";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const requestId = getRequestId(request);
 
   const limit = checkMemoryRateLimit("admin-audit", {
@@ -24,6 +26,8 @@ export async function GET(request: Request) {
   }
 
   try {
+    await requireAdminPermission(request, "security.view");
+
     const rows = await supabaseAudit.list({
       limit: 100,
       order: "created_at.desc",
