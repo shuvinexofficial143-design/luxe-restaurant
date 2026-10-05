@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { dishes } from "@/lib/menu/data";
@@ -30,7 +31,7 @@ export default function RealOrderMenu({
   const [menu, setMenu] = useState<MenuItem[]>(savedMenu);
   const [category, setCategory] = useState("All");
   const [syncNote, setSyncNote] = useState(
-    "Saved menu prices shown while live database sync is checked."
+    "Showing the current saved menu while availability is refreshed."
   );
 
   useEffect(() => {
@@ -44,14 +45,18 @@ export default function RealOrderMenu({
 
           if (rows.length) {
             setMenu(rows);
-            setSyncNote("Live menu connected.");
+            setSyncNote("Menu updated from the kitchen.");
           } else {
-            setSyncNote("Saved menu visible. Final order requires the live database connection.");
+            setSyncNote(
+              "The menu is available to browse. Ordering may be temporarily unavailable."
+            );
           }
         }
       )
       .catch(() =>
-        setSyncNote("Saved menu visible. Final order requires the live database connection.")
+        setSyncNote(
+          "The menu is available to browse. Ordering may be temporarily unavailable."
+        )
       );
   }, []);
 
@@ -66,86 +71,76 @@ export default function RealOrderMenu({
       : menu.filter((item) => item.category === category);
 
   const tableSuffix = initialTable
-    ? `?table=${encodeURIComponent(initialTable)}`
+    ? "?table=" + encodeURIComponent(initialTable)
     : "";
 
   return (
     <div>
-      <div className="flex gap-1.5 overflow-x-auto pb-2">
-        {categories.map((item, index) => (
+      <div className="flex gap-2 overflow-x-auto pb-2">
+        {categories.map((item) => (
           <button
             key={item}
             type="button"
             onClick={() => setCategory(item)}
-            className={`shrink-0 rounded-full px-3 py-2 text-[7px] font-bold uppercase tracking-[.1em] transition ${
-              category === item
-                ? index % 3 === 0
-                  ? "bg-[#57b8ff] text-[#071018]"
-                  : index % 3 === 1
-                    ? "bg-[#9d7cff] text-[#100b19]"
-                    : "bg-[#39c58f] text-[#06120d]"
-                : "border border-white/10 bg-white/[.025] text-white/44"
-            }`}
+            className={
+              "shrink-0 rounded-full border px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[.1em] transition " +
+              (category === item
+                ? "border-[#c9944b]/50 bg-[#c9944b] text-[#100c08]"
+                : "border-white/10 bg-white/[.025] text-white/52 hover:border-[#c9944b]/28 hover:text-[#e4c99e]")
+            }
           >
             {item}
           </button>
         ))}
       </div>
 
-      <p className="mt-1 px-1 text-[7px] leading-4 text-white/24">
+      <p className="mt-1 px-1 text-[10px] leading-5 text-white/42">
         {syncNote}
       </p>
 
-      <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-3">
-        {visible.map((item, index) => {
-          const href = `/order/item/${item.slug}${tableSuffix}`;
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+        {visible.map((item) => {
+          const href = "/order/item/" + item.slug + tableSuffix;
 
           return (
             <article
               key={item.slug}
-              className="overflow-hidden rounded-[18px] border border-white/9 bg-[#11100d] shadow-[0_16px_36px_rgba(0,0,0,.22)]"
+              className="overflow-hidden rounded-[20px] border border-[#e7c58f]/10 bg-[#11100d] shadow-[0_16px_36px_rgba(0,0,0,.22)]"
             >
-              <Link href={href} className="block">
-                <div
-                  className="h-[118px] bg-[#16120e] bg-cover bg-center transition duration-500 active:scale-[.99] md:h-[165px]"
-                  style={item.image ? { backgroundImage: `url("${item.image}")` } : undefined}
-                />
+              <Link href={href} className="group block">
+                <div className="relative aspect-[1.25/1] overflow-hidden bg-[#16120e]">
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, 33vw"
+                      className="object-cover transition duration-500 group-hover:scale-[1.035]"
+                    />
+                  ) : null}
+                </div>
               </Link>
 
-              <div className="p-3">
-                <p
-                  className={`text-[6px] uppercase tracking-[.12em] ${
-                    index % 3 === 0
-                      ? "text-[#62c9ff]"
-                      : index % 3 === 1
-                        ? "text-[#ae93ff]"
-                        : "text-[#55daa4]"
-                  }`}
-                >
+              <div className="p-4">
+                <p className="text-[9px] uppercase tracking-[.12em] text-[#c7a26d]">
                   {item.category}
                 </p>
                 <Link href={href} className="block">
-                  <h3 className="lx-serif mt-1 line-clamp-2 text-[1.15rem] leading-[.95] text-[#f1e4d2] md:text-xl">
+                  <h3 className="lx-serif mt-1 line-clamp-2 text-xl leading-[.98] text-[#f1e4d2] md:text-2xl">
                     {item.title}
                   </h3>
                 </Link>
-                <p className="mt-2 line-clamp-2 text-[8px] leading-4 text-white/30">
+                <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-white/46">
                   {item.excerpt}
                 </p>
 
-                <div className="mt-3 flex items-center justify-between gap-2">
-                  <span className="lx-serif text-lg text-[#e0ac5c]">
+                <div className="mt-4 flex items-center justify-between gap-2">
+                  <span className="lx-serif text-xl text-[#e0ac5c]">
                     ₹{item.price.toLocaleString("en-IN")}
                   </span>
                   <Link
                     href={href}
-                    className={`flex min-h-9 items-center justify-center rounded-[11px] px-4 text-[7px] font-black uppercase tracking-[.1em] text-[#090806] ${
-                      index % 3 === 0
-                        ? "bg-[#57b8ff]"
-                        : index % 3 === 1
-                          ? "bg-[#9d7cff]"
-                          : "bg-[#39c58f]"
-                    }`}
+                    className="flex min-h-10 items-center justify-center rounded-[12px] bg-[#c9944b] px-4 text-[9px] font-bold uppercase tracking-[.1em] text-[#090806]"
                   >
                     Order
                   </Link>
