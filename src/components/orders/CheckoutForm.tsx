@@ -135,7 +135,7 @@ export default function CheckoutForm({
         disabled={!items.length}
         className="h-14 w-full rounded-[18px] bg-[#7c241e] text-[10px] uppercase tracking-[.15em] text-white disabled:opacity-35"
       >
-        Place demo order ↗
+        Place order ↗
       </button>
     </form>
   );
