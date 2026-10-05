@@ -63,7 +63,7 @@ export default function CtaBanner({
         </Reveal>
         <Reveal delay={0.5}>
           <p className="mt-10 text-[0.6875rem] uppercase tracking-[0.3em] text-cream-100/50">
-            Tuesday — Sunday · From 17:30 · Mayfair
+            Vijay Nagar, Indore · Reservations recommended
           </p>
         </Reveal>
       </div>
