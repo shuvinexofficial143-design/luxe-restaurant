@@ -13,7 +13,7 @@ export default async function AdminLoginPage({
     <main className="min-h-screen bg-[#201713] p-3 text-[#201713] md:p-6">
       <div className="mx-auto grid min-h-[94vh] max-w-[1080px] items-center gap-4 lg:grid-cols-[1fr_470px]">
         <div className="hidden rounded-[34px] bg-[#7c241e] p-8 text-white lg:block">
-          <p className="text-[9px] uppercase tracking-[.16em] text-[#ffd0a8]">
+          <p className="text-[10px] uppercase tracking-[.16em] text-[#ffd0a8]">
             LUXE Control Room
           </p>
           <h2 className="lx-serif mt-3 text-7xl leading-[.9]">
