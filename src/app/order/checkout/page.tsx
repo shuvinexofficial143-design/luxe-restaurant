@@ -1,28 +1,20 @@
 "use client";
 
-import { useMemo, useSyncExternalStore } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSyncExternalStore } from "react";
 import LuxeShell from "@/components/luxe/LuxeShell";
 import CheckoutForm from "@/components/orders/CheckoutForm";
 import CartSummary from "@/components/orders/CartSummary";
 import OrderEmptyState from "@/components/orders/OrderEmptyState";
 import { cartStore } from "@/lib/orders/cart-storage";
 import { cartSubtotal } from "@/lib/orders/utils";
-import { evaluatePromo } from "@/lib/orders/promo";
 
 export default function CheckoutPage() {
-  const searchParams = useSearchParams();
   const items = useSyncExternalStore(
     cartStore.subscribe,
     cartStore.getSnapshot,
     cartStore.getServerSnapshot
   );
   const subtotal = cartSubtotal(items);
-
-  const promo = useMemo(() => {
-    const code = searchParams.get("promo") || "";
-    return code ? evaluatePromo(code, subtotal) : null;
-  }, [searchParams, subtotal]);
 
   return (
     <LuxeShell>
@@ -36,9 +28,9 @@ export default function CheckoutPage() {
               <OrderEmptyState />
             ) : (
               <div className="grid gap-4 lg:grid-cols-[1fr_330px]">
-                <CheckoutForm promo={promo} />
+                <CheckoutForm />
                 <div className="lg:sticky lg:top-[110px] lg:self-start">
-                  <CartSummary subtotal={subtotal} promo={promo} />
+                  <CartSummary subtotal={subtotal} promo={null} />
                 </div>
               </div>
             )}
