@@ -11,7 +11,7 @@ export default function ManageReservationPage() {
           <p className="lx-kicker">Your reservation</p>
           <h1 className="lx-serif mt-2 text-5xl md:text-7xl">Manage booking.</h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-[#75645d]">
-            Enter your booking reference to view, change the time or cancel a demo reservation.
+            Enter your booking reference to view, change the time or cancel your reservation.
           </p>
           <div className="mt-7"><BookingLookup /></div>
         </div>
