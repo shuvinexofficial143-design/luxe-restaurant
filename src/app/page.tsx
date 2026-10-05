@@ -9,6 +9,9 @@ export const metadata = {
   title: "LUXE · Modern Fire Dining",
   description:
     "Modern fire dining in Indore — seasonal plates, curated wine and thoughtful hospitality.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function HomePage() {
