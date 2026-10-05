@@ -1,21 +1,26 @@
 "use client";
 
-import { FormEvent, useMemo, useState, useSyncExternalStore } from "react";
+import { FormEvent, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { cartStore } from "@/lib/orders/cart-storage";
-import { orderStorage } from "@/lib/orders/order-storage";
-import { cartSubtotal, createOrderId, serviceCharge } from "@/lib/orders/utils";
-import type { FulfillmentType, PromoResult } from "@/lib/orders/types";
+import type { FulfillmentType } from "@/lib/orders/types";
 import FulfillmentSelector from "./FulfillmentSelector";
 import PickupTimeSelector from "./PickupTimeSelector";
 import TableNumberSelector from "./TableNumberSelector";
-import PaymentDemo from "./PaymentDemo";
 
-export default function CheckoutForm({
-  promo,
-}: {
-  promo: PromoResult | null;
-}) {
+type ApiPayload = {
+  ok?: boolean;
+  data?: {
+    order?: {
+      orderId?: string;
+    };
+  };
+  error?: {
+    message?: string;
+  };
+};
+
+export default function CheckoutForm() {
   const router = useRouter();
   const items = useSyncExternalStore(
     cartStore.subscribe,
@@ -26,52 +31,59 @@ export default function CheckoutForm({
   const [fulfillment, setFulfillment] = useState<FulfillmentType>("PICKUP");
   const [pickupTime, setPickupTime] = useState("7:00 PM");
   const [tableNumber, setTableNumber] = useState("M1");
-  const [paymentMethod, setPaymentMethod] = useState<
-    "PAY_AT_RESTAURANT" | "DEMO_CARD"
-  >("PAY_AT_RESTAURANT");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const totals = useMemo(() => {
-    const subtotal = cartSubtotal(items);
-    const discount = promo?.valid ? promo.discount : 0;
-    const afterDiscount = Math.max(0, subtotal - discount);
-    const service = serviceCharge(afterDiscount);
-    return {
-      subtotal,
-      discount,
-      service,
-      total: afterDiscount + service,
-    };
-  }, [items, promo]);
-
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!items.length) return;
+    if (!items.length || loading) return;
 
     const form = new FormData(event.currentTarget);
-    const id = createOrderId();
+    const guestName = String(form.get("name") || "").trim();
+    const phone = String(form.get("phone") || "").trim();
+    const notes = String(form.get("notes") || "").trim();
 
-    orderStorage.save({
-      id,
-      items,
-      subtotal: totals.subtotal,
-      discount: totals.discount,
-      serviceCharge: totals.service,
-      total: totals.total,
-      promoCode: promo?.valid ? promo.code : "",
-      fulfillment,
-      pickupTime: fulfillment === "PICKUP" ? pickupTime : "",
-      tableNumber: fulfillment === "TABLE" ? tableNumber : "",
-      name: String(form.get("name") || ""),
-      email: String(form.get("email") || ""),
-      phone: String(form.get("phone") || ""),
-      notes: String(form.get("notes") || ""),
-      paymentMethod,
-      status: "RECEIVED",
-      createdAt: new Date().toISOString(),
-    });
+    setLoading(true);
+    setMessage("");
 
-    cartStore.clear();
-    router.push(`/order/confirmation/${id}`);
+    try {
+      const response = await fetch("/api/v1/order-engine/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fulfillment,
+          guestName,
+          phone,
+          pickupTime: fulfillment === "PICKUP" ? pickupTime : "",
+          tableNumber: fulfillment === "TABLE" ? tableNumber : "",
+          notes,
+          items: items.map((item) => ({
+            slug: item.slug,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+
+      const payload = (await response.json()) as ApiPayload;
+      const orderId = payload.data?.order?.orderId;
+
+      if (!response.ok || !payload.ok || !orderId) {
+        setMessage(
+          payload.error?.message ||
+            "Your order could not be placed. Please try again."
+        );
+        return;
+      }
+
+      cartStore.clear();
+      router.push("/order/track/" + encodeURIComponent(orderId));
+    } catch {
+      setMessage("Your order could not be placed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -93,31 +105,32 @@ export default function CheckoutForm({
       </div>
 
       <div className="rounded-[24px] bg-[#fffaf4] p-5">
-        <p className="text-[9px] uppercase tracking-[.12em] text-[#7c241e]">
+        <p className="text-[10px] uppercase tracking-[.12em] text-[#7c241e]">
           Guest details
         </p>
 
         <div className="mt-4 grid gap-3">
-          {[
-            ["Name", "name", "text"],
-            ["Email", "email", "email"],
-            ["Phone", "phone", "tel"],
-          ].map(([label, name, type]) => (
-            <label
-              key={name}
-              className="grid gap-2 text-[9px] uppercase tracking-[.11em] text-[#7c241e]"
-            >
-              {label}
-              <input
-                required
-                name={name}
-                type={type}
-                className="h-12 rounded-[16px] border border-[#4a3025]/10 bg-white px-4 text-sm normal-case tracking-normal outline-none"
-              />
-            </label>
-          ))}
+          <label className="grid gap-2 text-[10px] uppercase tracking-[.11em] text-[#7c241e]">
+            Name
+            <input
+              required
+              name="name"
+              type="text"
+              className="h-12 rounded-[16px] border border-[#4a3025]/10 bg-white px-4 text-sm normal-case tracking-normal outline-none"
+            />
+          </label>
 
-          <label className="grid gap-2 text-[9px] uppercase tracking-[.11em] text-[#7c241e]">
+          <label className="grid gap-2 text-[10px] uppercase tracking-[.11em] text-[#7c241e]">
+            Phone
+            <input
+              required
+              name="phone"
+              type="tel"
+              className="h-12 rounded-[16px] border border-[#4a3025]/10 bg-white px-4 text-sm normal-case tracking-normal outline-none"
+            />
+          </label>
+
+          <label className="grid gap-2 text-[10px] uppercase tracking-[.11em] text-[#7c241e]">
             Notes
             <textarea
               name="notes"
@@ -129,14 +142,27 @@ export default function CheckoutForm({
         </div>
       </div>
 
-      <PaymentDemo value={paymentMethod} onChange={setPaymentMethod} />
+      <div className="rounded-[20px] border border-[#4a3025]/10 bg-[#fff4de] p-4">
+        <p className="text-[10px] uppercase tracking-[.12em] text-[#8a5a21]">
+          Payment
+        </p>
+        <p className="mt-2 text-sm leading-6 text-[#75645d]">
+          Place the order first. Available payment options are shown securely on the order tracking screen.
+        </p>
+      </div>
 
       <button
-        disabled={!items.length}
+        disabled={!items.length || loading}
         className="h-14 w-full rounded-[18px] bg-[#7c241e] text-[10px] uppercase tracking-[.15em] text-white disabled:opacity-35"
       >
-        Place order ↗
+        {loading ? "Placing order…" : "Place order ↗"}
       </button>
+
+      {message ? (
+        <p className="rounded-[16px] bg-[#fff4de] p-4 text-sm leading-6 text-[#7a4a16]">
+          {message}
+        </p>
+      ) : null}
     </form>
   );
 }
