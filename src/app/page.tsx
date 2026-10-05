@@ -6,7 +6,7 @@ import HomeSections from "@/components/luxe/HomeSections";
 export const metadata = {
   title: "LUXE · Modern Fire Dining",
   description:
-    "Modern fire dining in Ujjain — seasonal plates, curated wine and thoughtful hospitality.",
+    "Modern fire dining in Indore — seasonal plates, curated wine and thoughtful hospitality.",
 };
 
 export default function HomePage() {
