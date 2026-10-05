@@ -6,6 +6,8 @@ import DietaryBadges from "@/components/menu/DietaryBadges";
 import SpiceLevel from "@/components/menu/SpiceLevel";
 import DishGrid from "@/components/menu/DishGrid";
 import { dishes, getDish } from "@/lib/menu/data";
+import AddToCartButton from "@/components/orders/AddToCartButton";
+import CartButton from "@/components/orders/CartButton";
 
 export function generateStaticParams() {
   return dishes.map((dish) => ({ slug: dish.slug }));
@@ -92,11 +94,20 @@ export default async function DishPage({
                 </div>
               ) : null}
 
-              <div className="mt-6 grid grid-cols-2 gap-2">
-                <Link href="/reservations" className="flex min-h-13 items-center justify-center rounded-[18px] bg-[#7c241e] px-4 text-[9px] uppercase tracking-[.14em] text-white">
-                  Reserve to try ↗
+              <div className="mt-6 grid gap-2 sm:grid-cols-3">
+                <AddToCartButton
+                  dish={{
+                    slug: dish.slug,
+                    name: dish.name,
+                    price: dish.price,
+                    image: dish.image,
+                  }}
+                  className="flex min-h-13 items-center justify-center rounded-[18px] bg-[#7c241e] px-4 text-[10px] uppercase tracking-[.12em] text-white"
+                />
+                <Link href="/reservations" className="flex min-h-13 items-center justify-center rounded-[18px] bg-[#335f50] px-4 text-[10px] uppercase tracking-[.12em] text-white">
+                  Reserve table
                 </Link>
-                <Link href="/menu" className="flex min-h-13 items-center justify-center rounded-[18px] border border-[#4a3025]/10 px-4 text-[9px] uppercase tracking-[.14em]">
+                <Link href="/menu" className="flex min-h-13 items-center justify-center rounded-[18px] border border-[#4a3025]/10 px-4 text-[10px] uppercase tracking-[.12em]">
                   Back to menu
                 </Link>
               </div>
@@ -114,6 +125,7 @@ export default async function DishPage({
           </div>
         </section>
       ) : null}
+      <CartButton />
     </LuxeShell>
   );
 }
