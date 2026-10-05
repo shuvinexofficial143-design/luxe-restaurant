@@ -12,7 +12,7 @@ export default function PrivateDiningPage() {
       <PageHero
         eyebrow="Private celebrations"
         title="Private Dining"
-        text="Choose a room, capacity and dining package — then send a full enquiry with an instant demo estimate."
+        text="Choose a room, capacity and dining package — then send a full enquiry with a clear estimated package total."
         image="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=2200&q=90"
       />
 
@@ -34,7 +34,7 @@ export default function PrivateDiningPage() {
               Plan the private experience.
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-[#75645d]">
-              Choose a space, package, guest count and date. The estimate updates before your demo enquiry is saved.
+              Choose a space, package, guest count and date. The estimate updates as you shape the room, package, guest count and date.
             </p>
 
             <div className="mt-6">
