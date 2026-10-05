@@ -1,15 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import LuxeShell from "@/components/luxe/LuxeShell";
 import CartLineItem from "@/components/orders/CartLineItem";
 import CartSummary from "@/components/orders/CartSummary";
-import PromoCodeForm from "@/components/orders/PromoCodeForm";
 import OrderEmptyState from "@/components/orders/OrderEmptyState";
 import { cartStore } from "@/lib/orders/cart-storage";
 import { cartSubtotal } from "@/lib/orders/utils";
-import type { PromoResult } from "@/lib/orders/types";
 
 export default function CartPage() {
   const items = useSyncExternalStore(
@@ -17,7 +15,6 @@ export default function CartPage() {
     cartStore.getSnapshot,
     cartStore.getServerSnapshot
   );
-  const [promo, setPromo] = useState<PromoResult | null>(null);
   const subtotal = cartSubtotal(items);
 
   return (
@@ -37,26 +34,20 @@ export default function CartPage() {
                     <CartLineItem key={item.slug} item={item} />
                   ))}
 
-                  <PromoCodeForm
-                    subtotal={subtotal}
-                    value={promo}
-                    onChange={setPromo}
-                  />
-
                   <Link
                     href="/order"
-                    className="inline-flex text-[9px] uppercase tracking-[.12em] text-[#7c241e]"
+                    className="inline-flex text-[10px] uppercase tracking-[.12em] text-[#7c241e]"
                   >
                     ← Add more dishes
                   </Link>
                 </div>
 
                 <div className="space-y-3 lg:sticky lg:top-[110px] lg:self-start">
-                  <CartSummary subtotal={subtotal} promo={promo} />
+                  <CartSummary subtotal={subtotal} promo={null} />
 
                   <Link
-                    href={`/order/checkout${promo?.valid ? `?promo=${encodeURIComponent(promo.code)}` : ""}`}
-                    className="flex min-h-13 items-center justify-center rounded-[18px] bg-[#7c241e] text-[9px] uppercase tracking-[.14em] text-white"
+                    href="/order/checkout"
+                    className="flex min-h-13 items-center justify-center rounded-[18px] bg-[#7c241e] text-[10px] uppercase tracking-[.14em] text-white"
                   >
                     Checkout ↗
                   </Link>
