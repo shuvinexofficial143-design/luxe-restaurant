@@ -11,7 +11,21 @@ export async function GET(
   try {
     const { id } = await context.params;
     const details = await getOrderDetails(id);
-    return apiSuccess(details, requestId);
+
+    const safeOrder = {
+      ...details.order,
+      guest_name: "",
+      phone: "",
+    };
+
+    return apiSuccess(
+      {
+        order: safeOrder,
+        items: details.items,
+        history: details.history,
+      },
+      requestId
+    );
   } catch (error) {
     return apiFailure(error, requestId);
   }
