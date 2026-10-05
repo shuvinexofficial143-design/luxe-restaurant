@@ -1,22 +1,10 @@
-import LuxeShell from "@/components/luxe/LuxeShell";
-import RealReservationSuccess from "@/components/reservations/RealReservationSuccess";
+import { redirect } from "next/navigation";
 
-export const metadata = { title: "Reservation Confirmation" };
-
-export default async function LiveReservationConfirmationPage({
+export default async function LegacyReservationConfirmationPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  return (
-    <LuxeShell>
-      <section className="px-3 pt-[100px] md:px-5 md:pt-[120px]">
-        <div className="mx-auto max-w-[760px]">
-          <RealReservationSuccess id={id} />
-        </div>
-      </section>
-    </LuxeShell>
-  );
+  redirect("/reservations/confirmation/" + encodeURIComponent(id));
 }
