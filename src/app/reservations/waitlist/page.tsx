@@ -11,7 +11,7 @@ export default function WaitlistPage() {
           <p className="lx-kicker">No table? No problem.</p>
           <h1 className="lx-serif mt-2 text-5xl md:text-7xl">Join waitlist.</h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-[#75645d]">
-            Save your preferred date and time so a future WhatsApp/SMS integration can alert you when a table opens.
+            Save your preferred date, time and party size to join the table waitlist.
           </p>
           <div className="mt-7"><WaitlistForm /></div>
         </div>
