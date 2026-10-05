@@ -81,9 +81,9 @@ export default function RealReservationSuccess({
     }
 
     setMessage(
-      `Real Razorpay order created: ${
+      `Deposit payment reference: ${
         payload.data?.order?.id || "order ready"
-      }. Checkout UI activation comes in the payment UI phase.`
+      }. Your deposit request is ready for payment processing.`
     );
   }
 
@@ -109,7 +109,7 @@ export default function RealReservationSuccess({
               ["Status", reservation.status],
             ].map(([label, value]) => (
               <div key={label} className="rounded-[16px] bg-white p-3">
-                <p className="text-[8px] uppercase tracking-[.09em] text-[#8a756b]">
+                <p className="text-[10px] uppercase tracking-[.09em] text-[#8a756b]">
                   {label}
                 </p>
                 <p className="lx-serif mt-1 text-xl">{value}</p>
@@ -122,16 +122,16 @@ export default function RealReservationSuccess({
             <button
               type="button"
               onClick={() => void createDeposit()}
-              className="mt-5 h-12 w-full rounded-[16px] bg-[#7c241e] text-[9px] uppercase tracking-[.12em] text-white"
+              className="mt-5 h-12 w-full rounded-[16px] bg-[#7c241e] text-[10px] uppercase tracking-[.12em] text-white"
             >
-              Create Razorpay deposit order · ₹
+              Prepare deposit payment · ₹
               {Number(reservation.deposit_amount).toLocaleString("en-IN")}
             </button>
           ) : null}
 
           <Link
-            href="/reservations/live"
-            className="mt-3 flex h-12 items-center justify-center rounded-[16px] border border-[#4a3025]/10 text-[9px] uppercase tracking-[.11em]"
+            href="/reservations"
+            className="mt-3 flex h-12 items-center justify-center rounded-[16px] border border-[#4a3025]/10 text-[10px] uppercase tracking-[.11em]"
           >
             New reservation
           </Link>
