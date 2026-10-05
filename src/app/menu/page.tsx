@@ -2,6 +2,7 @@ import Link from "next/link";
 import LuxeShell from "@/components/luxe/LuxeShell";
 import MenuClient from "@/components/menu/MenuClient";
 import { dishes } from "@/lib/menu/data";
+import CartButton from "@/components/orders/CartButton";
 
 export const metadata = {
   title: "Menu · LUXE",
@@ -48,6 +49,8 @@ export default function MenuPage() {
           <MenuClient dishes={dishes} />
         </div>
       </section>
+
+      <CartButton />
     </LuxeShell>
   );
 }
