@@ -21,7 +21,7 @@ export default function RealBookingSummary({
 
   return (
     <div className="rounded-[22px] bg-[#201713] p-5 text-white">
-      <p className="text-[9px] uppercase tracking-[.13em] text-[#efc28b]">
+      <p className="text-[10px] uppercase tracking-[.13em] text-[#efc28b]">
         Booking summary
       </p>
       <div className="mt-4 space-y-2">
@@ -30,7 +30,7 @@ export default function RealBookingSummary({
             key={label}
             className="flex items-center justify-between gap-4 rounded-[13px] bg-white/[.06] p-3"
           >
-            <span className="text-[9px] text-white/40">{label}</span>
+            <span className="text-[10px] text-white/52">{label}</span>
             <span className="text-xs">{value}</span>
           </div>
         ))}
