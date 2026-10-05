@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 
 const routes = [
   ["home", "src/app/page.tsx"],
@@ -19,17 +19,36 @@ const routes = [
   ["health readiness", "src/app/api/health/readiness/route.ts"],
 ];
 
-let missing = 0;
+const protectedAdminReads = [
+  ["admin audit API", "src/app/api/v1/admin/audit/route.ts"],
+  ["admin sessions API", "src/app/api/v1/admin/sessions/route.ts"],
+  ["admin users API", "src/app/api/v1/admin/users/route.ts"],
+];
 
-for (const [label, path] of routes) {
-  const ok = existsSync(path);
-  console.log(`${ok ? "OK " : "MISS"} ${label.padEnd(22)} ${path}`);
-  if (!ok) missing += 1;
+let failures = 0;
+
+for (const [label, routePath] of routes) {
+  const ok = existsSync(routePath);
+  console.log(`${ok ? "OK " : "MISS"} ${label.padEnd(22)} ${routePath}`);
+  if (!ok) failures += 1;
 }
 
-if (missing) {
-  console.error(`\nRoute audit found ${missing} missing core route files.`);
+for (const [label, routePath] of protectedAdminReads) {
+  if (!existsSync(routePath)) {
+    console.log(`MISS ${label.padEnd(22)} ${routePath}`);
+    failures += 1;
+    continue;
+  }
+
+  const source = readFileSync(routePath, "utf8");
+  const guarded = source.includes("requireAdminPermission");
+  console.log(`${guarded ? "OK " : "OPEN"} ${label.padEnd(22)} ${routePath}`);
+  if (!guarded) failures += 1;
+}
+
+if (failures) {
+  console.error(`\nRoute audit found ${failures} routing/security issue(s).`);
   process.exit(1);
 }
 
-console.log("\nCore route audit: PASS");
+console.log("\nCore route and admin API guard audit: PASS");
