@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Dish } from "@/lib/menu/types";
+import AddToCartButton from "@/components/orders/AddToCartButton";
 
 const accents = [
   { button: "bg-[#d9ad70]", text: "text-[#d9ad70]" },
@@ -81,12 +82,16 @@ export default function DishCard({ dish }: { dish: Dish }) {
           >
             View
           </Link>
-          <Link
-            href="/order"
+          <AddToCartButton
+            dish={{
+              slug: dish.slug,
+              name: dish.name,
+              price: dish.price,
+              image: dish.image,
+            }}
+            label="Add"
             className={`${accent.button} flex min-h-11 items-center justify-center rounded-[12px] text-[9px] font-bold uppercase tracking-[.1em] text-[#100c08] shadow-[0_10px_24px_rgba(0,0,0,.2)] transition active:scale-[.98]`}
-          >
-            Order
-          </Link>
+          />
         </div>
       </div>
     </article>
