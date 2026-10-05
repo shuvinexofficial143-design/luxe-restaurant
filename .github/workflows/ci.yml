@@ -42,6 +42,9 @@ jobs:
       - name: Route audit
         run: node scripts/luxe-route-audit.mjs
 
+      - name: Static link audit
+        run: node scripts/luxe-link-audit.mjs
+
       - name: Migration audit
         run: node scripts/luxe-migration-audit.mjs
 
