@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import type { VideoItem } from "@/lib/media/types";
 
@@ -20,37 +21,41 @@ export default function CinematicVideoCard({
             controls
             autoPlay
             playsInline
+            preload="metadata"
             className="h-full w-full object-cover"
           />
         ) : (
           <>
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url("${video.poster}")` }}
+            <Image
+              src={video.poster}
+              alt={video.title}
+              fill
+              sizes="(max-width: 767px) 86vw, (max-width: 1023px) 50vw, 34vw"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-black/20" />
             <button
               type="button"
               onClick={() => setPlaying(true)}
-              className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-xl text-[#201713]"
-              aria-label={`Play ${video.title}`}
+              className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-xl text-[#201713] shadow-xl"
+              aria-label={"Play " + video.title}
             >
               ▶
             </button>
           </>
         )}
 
-        <span className="absolute right-3 top-3 rounded-full bg-black/55 px-3 py-2 text-[8px]">
+        <span className="absolute right-3 top-3 rounded-full bg-black/60 px-3 py-2 text-[10px]">
           {video.duration}
         </span>
       </div>
 
       <div className="p-4">
-        <p className="text-[8px] uppercase tracking-[.12em] text-[#efc28b]">
+        <p className="text-[10px] uppercase tracking-[.12em] text-[#efc28b]">
           {video.category}
         </p>
         <h3 className="lx-serif mt-1 text-2xl">{video.title}</h3>
-        <p className="mt-2 text-xs leading-6 text-white/50">
+        <p className="mt-2 text-sm leading-6 text-white/58">
           {video.caption}
         </p>
       </div>
