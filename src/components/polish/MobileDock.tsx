@@ -6,10 +6,10 @@ import { softHaptic } from "@/lib/polish/haptics";
 
 const items = [
   ["Home", "/", "⌂", "#d8a04c"],
-  ["Menu", "/menu", "≡", "#57b8ff"],
-  ["Book", "/reservations", "◷", "#9d7cff"],
-  ["Order", "/order/live", "▣", "#39c58f"],
-  ["Account", "/account/secure", "○", "#ff6f91"],
+  ["Menu", "/menu", "≡", "#c9944b"],
+  ["Book", "/reservations", "◷", "#e0b779"],
+  ["Order", "/order", "▣", "#b07b4d"],
+  ["Account", "/account/secure", "○", "#c7a27a"],
 ] as const;
 
 export default function MobileDock() {
@@ -33,7 +33,7 @@ export default function MobileDock() {
               href={href}
               onClick={softHaptic}
               aria-current={active ? "page" : undefined}
-              className="flex min-h-[52px] flex-col items-center justify-center rounded-[15px] text-[8px] font-bold transition active:scale-[.96]"
+              className="flex min-h-[52px] flex-col items-center justify-center rounded-[15px] text-[10px] font-semibold transition active:scale-[.96]"
               style={{
                 background: active ? color : "transparent",
                 color: active ? "#090806" : color,
