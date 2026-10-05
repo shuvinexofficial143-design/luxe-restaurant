@@ -15,29 +15,31 @@ export default function CartSummary({
 
   return (
     <div className="rounded-[24px] bg-[#201713] p-5 text-white">
-      <p className="text-[9px] uppercase tracking-[.15em] text-[#efc28b]">
+      <p className="text-[10px] uppercase tracking-[.15em] text-[#efc28b]">
         Order summary
       </p>
 
       <div className="mt-4 space-y-3 text-sm">
         <div className="flex justify-between gap-4">
-          <span className="text-white/45">Subtotal</span>
+          <span className="text-white/48">Subtotal</span>
           <span>{formatMoney(subtotal)}</span>
         </div>
 
-        <div className="flex justify-between gap-4">
-          <span className="text-white/45">Promo discount</span>
-          <span className="text-[#efc28b]">− {formatMoney(discount)}</span>
-        </div>
+        {discount > 0 ? (
+          <div className="flex justify-between gap-4">
+            <span className="text-white/48">Discount</span>
+            <span className="text-[#efc28b]">− {formatMoney(discount)}</span>
+          </div>
+        ) : null}
 
         <div className="flex justify-between gap-4">
-          <span className="text-white/45">Demo service charge</span>
+          <span className="text-white/48">Service charge</span>
           <span>{formatMoney(service)}</span>
         </div>
 
         <div className="border-t border-white/10 pt-4">
           <div className="flex items-end justify-between gap-4">
-            <span className="text-[9px] uppercase tracking-[.13em] text-white/45">
+            <span className="text-[10px] uppercase tracking-[.13em] text-white/48">
               Total
             </span>
             <span className="lx-serif text-3xl text-[#efc28b]">
