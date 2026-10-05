@@ -28,18 +28,9 @@ export async function GET(request: NextRequest) {
             area: row.area,
             table_id: row.table_id,
             status: row.status,
-            deposit_required:
-              "deposit_required" in row
-                ? Boolean((row as Record<string, unknown>).deposit_required)
-                : false,
-            deposit_amount:
-              "deposit_amount" in row
-                ? Number((row as Record<string, unknown>).deposit_amount || 0)
-                : 0,
-            payment_status:
-              "payment_status" in row
-                ? String((row as Record<string, unknown>).payment_status || "UNPAID")
-                : "UNPAID",
+            deposit_required: Boolean(row.deposit_required),
+            deposit_amount: Number(row.deposit_amount || 0),
+            payment_status: row.payment_status || "UNPAID",
           }
         : null;
 
