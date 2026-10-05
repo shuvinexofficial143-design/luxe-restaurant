@@ -68,7 +68,7 @@ export default function LuxeShell({
                     LUXE
                   </p>
                   <p className="mt-2 text-[7px] uppercase tracking-[.2em] text-[#a77d49]">
-                    Modern fire dining · Ujjain
+                    Modern fire dining · Indore
                   </p>
                 </div>
 
