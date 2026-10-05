@@ -12,7 +12,7 @@ export default function ReservationEngineStatus() {
   const [state, setState] = useState<State>({
     database: false,
     engine: false,
-    message: "Checking reservation engine…",
+    message: "Checking table availability…",
   });
 
   useEffect(() => {
@@ -32,40 +32,40 @@ export default function ReservationEngineStatus() {
           database: databaseResponse.ok,
           engine: engineResponse.ok,
           message: engineResponse.ok
-            ? "Reservation RPC and dining-table inventory are reachable."
-            : "Apply migration 005_reservation_engine.sql after the database is connected.",
+            ? "Online reservations are available."
+            : "Online reservations are temporarily unavailable. Please contact the restaurant team.",
         });
       })
       .catch(() =>
         setState({
           database: false,
           engine: false,
-          message: "Reservation engine health check failed.",
+          message: "Online reservations are temporarily unavailable. Please contact the restaurant team.",
         })
       );
   }, []);
 
   return (
     <div className="rounded-[24px] bg-[#201713] p-5 text-white">
-      <p className="text-[9px] uppercase tracking-[.13em] text-[#efc28b]">
-        Engine status
+      <p className="text-[10px] uppercase tracking-[.13em] text-[#efc28b]">
+        Booking status
       </p>
 
       <div className="mt-4 grid grid-cols-2 gap-2">
         {[
-          [state.database ? "Ready" : "No", "database"],
-          [state.engine ? "Ready" : "No", "booking RPC"],
+          [state.database ? "Ready" : "No", "booking service"],
+          [state.engine ? "Ready" : "No", "availability"],
         ].map(([value, label]) => (
           <div key={label} className="rounded-[15px] bg-white/[.06] p-3">
             <p className="lx-serif text-2xl text-[#efc28b]">{value}</p>
-            <p className="mt-1 text-[8px] uppercase tracking-[.09em] text-white/40">
+            <p className="mt-1 text-[10px] uppercase tracking-[.09em] text-white/40">
               {label}
             </p>
           </div>
         ))}
       </div>
 
-      <p className="mt-4 text-[10px] leading-5 text-white/45">
+      <p className="mt-4 text-[11px] leading-5 text-white/52">
         {state.message}
       </p>
     </div>
