@@ -13,6 +13,9 @@ export type ReservationDBRow = {
   occasion: string | null;
   notes: string | null;
   status: string;
+  deposit_required?: boolean;
+  deposit_amount?: number;
+  payment_status?: string;
   created_at?: string;
   updated_at?: string;
 };
