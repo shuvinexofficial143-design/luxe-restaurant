@@ -58,7 +58,7 @@ export default function PanoramaViewer({
 
         <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/48 to-transparent p-4 text-white">
           <p className="text-[8px] uppercase tracking-[.14em] text-white/60">
-            Drag left / right · 360 foundation
+            Drag left / right · Explore the room
           </p>
           <h1 className="lx-serif mt-1 text-3xl">{scene.name}</h1>
         </div>
@@ -73,7 +73,7 @@ export default function PanoramaViewer({
       </div>
 
       <p className="mt-3 text-[10px] leading-5 text-[#8a756b]">
-        This is an interactive virtual-tour foundation using panoramic movement over demo photography. Real equirectangular 360° restaurant captures can replace these images later.
+        Drag across the scene to explore the room and tap the highlighted points for more detail.
       </p>
     </div>
   );
