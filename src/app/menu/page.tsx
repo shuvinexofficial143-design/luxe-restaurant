@@ -37,7 +37,7 @@ export default function MenuPage() {
             {quick.map(([label, href]) => (
               <Link key={href} href={href} className="shrink-0 rounded-full border border-[#e7c58f]/10 bg-white/[.02] px-3 py-2 text-[10px] uppercase tracking-[.1em] text-white/38">
                 {label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
