@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { dishes } from "@/lib/menu/data";
 
@@ -15,23 +16,31 @@ const featured = dishes.slice(0, 6);
 export default function HomeSections() {
   return (
     <>
-      <section className="px-3 pt-7 md:px-5 md:pt-10">
+      <section className="px-3 pt-8 md:px-5 md:pt-11">
         <div className="mx-auto max-w-[1240px]">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-[7px] uppercase tracking-[.18em] text-[#c9944b]">Browse by menu</p>
+              <p className="text-[10px] uppercase tracking-[.16em] text-[#c9944b]">Browse by menu</p>
               <h2 className="lx-serif mt-1 text-3xl text-[#f1e3d0] md:text-4xl">What are you craving?</h2>
             </div>
-            <Link href="/menu" className="text-[7px] uppercase tracking-[.12em] text-[#d3a762]">See all ↗</Link>
+            <Link href="/menu" className="text-[10px] uppercase tracking-[.12em] text-[#d3a762]">See all ↗</Link>
           </div>
 
-          <div className="mt-4 grid grid-cols-3 gap-2 md:grid-cols-6 md:gap-3">
+          <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-6 md:gap-3">
             {categories.map(([label, note, href, image]) => (
               <Link key={label} href={href} className="group overflow-hidden rounded-[18px] border border-[#e7c58f]/10 bg-[#100e0b] transition hover:-translate-y-1 hover:border-[#c9944b]/30">
-                <div className="aspect-[4/3] bg-cover bg-center transition duration-500 group-hover:scale-[1.04]" style={{ backgroundImage: `url("${image}")` }} />
-                <div className="p-2.5 md:p-3">
-                  <p className="lx-serif text-[15px] leading-none text-[#f0e0c9] md:text-lg">{label}</p>
-                  <p className="mt-1 truncate text-[7px] text-white/30">{note}</p>
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#16120e]">
+                  <Image
+                    src={image}
+                    alt={`${label} menu at LUXE`}
+                    fill
+                    sizes="(max-width: 639px) 50vw, (max-width: 767px) 33vw, 17vw"
+                    className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                  />
+                </div>
+                <div className="p-3">
+                  <p className="lx-serif text-[17px] leading-none text-[#f0e0c9] md:text-lg">{label}</p>
+                  <p className="mt-1 truncate text-[9px] leading-4 text-white/46">{note}</p>
                 </div>
               </Link>
             ))}
@@ -39,30 +48,41 @@ export default function HomeSections() {
         </div>
       </section>
 
-      <section className="px-3 py-9 md:px-5 md:py-14">
+      <section className="px-3 py-10 md:px-5 md:py-14">
         <div className="mx-auto max-w-[1240px]">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-[7px] uppercase tracking-[.18em] text-[#c9944b]">Popular tonight</p>
+              <p className="text-[10px] uppercase tracking-[.16em] text-[#c9944b]">Popular tonight</p>
               <h2 className="lx-serif mt-1 text-3xl text-[#f1e3d0] md:text-4xl">Order your favourites</h2>
             </div>
-            <Link href="/order/live" className="rounded-full border border-[#e7c58f]/12 px-3 py-2 text-[7px] uppercase tracking-[.1em] text-[#d2aa74]">See all</Link>
+            <Link href="/order" className="rounded-full border border-[#e7c58f]/14 px-3 py-2 text-[10px] uppercase tracking-[.1em] text-[#d2aa74]">See all</Link>
           </div>
 
-          <div className="mt-4 grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-4">
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4">
             {featured.map((dish) => (
               <article key={dish.slug} className="overflow-hidden rounded-[20px] border border-[#e7c58f]/10 bg-[#100e0b]">
-                <Link href={`/order/item/${dish.slug}`} className="block">
-                  <div className="aspect-[1.25/1] bg-cover bg-center transition duration-500 hover:scale-[1.025]" style={{ backgroundImage: `url("${dish.image}")` }} />
-                </Link>
-                <div className="p-3 md:p-4">
-                  <p className="text-[6px] uppercase tracking-[.12em] text-[#9f7d53]">{dish.category}</p>
-                  <div className="mt-1 flex items-start justify-between gap-2">
-                    <Link href={`/order/item/${dish.slug}`} className="lx-serif min-w-0 text-lg leading-[1.02] text-[#efe0c9] md:text-xl">{dish.name}</Link>
-                    <span className="lx-serif shrink-0 text-base text-[#d3a15e] md:text-lg">₹{dish.price.toLocaleString("en-IN")}</span>
+                <Link href={`/menu/${dish.slug}`} className="group block">
+                  <div className="relative aspect-[1.25/1] overflow-hidden bg-[#16120e]">
+                    <Image
+                      src={dish.image}
+                      alt={dish.name}
+                      fill
+                      sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, 34vw"
+                      className="object-cover transition duration-500 group-hover:scale-[1.035]"
+                    />
                   </div>
-                  <p className="mt-2 line-clamp-2 text-[8px] leading-4 text-white/32 md:text-[9px]">{dish.description}</p>
-                  <Link href={`/order/item/${dish.slug}`} className="lx-gold-button mt-3 flex min-h-10 items-center justify-center rounded-[12px] text-[7px] font-bold uppercase tracking-[.11em]">Order</Link>
+                </Link>
+                <div className="p-4">
+                  <p className="text-[9px] uppercase tracking-[.12em] text-[#b9905c]">{dish.category}</p>
+                  <div className="mt-1 flex items-start justify-between gap-2">
+                    <Link href={`/menu/${dish.slug}`} className="lx-serif min-w-0 text-xl leading-[1.02] text-[#efe0c9] md:text-2xl">{dish.name}</Link>
+                    <span className="lx-serif shrink-0 text-lg text-[#d3a15e] md:text-xl">₹{dish.price.toLocaleString("en-IN")}</span>
+                  </div>
+                  <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-white/48">{dish.description}</p>
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <Link href={`/menu/${dish.slug}`} className="flex min-h-11 items-center justify-center rounded-[12px] border border-[#e7c58f]/14 text-[9px] font-semibold uppercase tracking-[.1em] text-[#dfc59f]">View dish</Link>
+                    <Link href="/order" className="lx-gold-button flex min-h-11 items-center justify-center rounded-[12px] text-[9px] font-bold uppercase tracking-[.1em]">Order</Link>
+                  </div>
                 </div>
               </article>
             ))}
@@ -70,11 +90,11 @@ export default function HomeSections() {
         </div>
       </section>
 
-      <section className="px-3 pb-8 md:px-5 md:pb-12">
+      <section className="px-3 pb-9 md:px-5 md:pb-12">
         <div className="mx-auto grid max-w-[1240px] gap-3 md:grid-cols-3">
-          <Link href="/experiences/chefs-table" className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.018] p-4"><p className="lx-serif text-xl text-[#ead9c2]">Chef Table</p><p className="mt-1 text-[8px] text-white/30">Seven-course dining experience.</p></Link>
-          <Link href="/reservations" className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.018] p-4"><p className="lx-serif text-xl text-[#ead9c2]">Reserve</p><p className="mt-1 text-[8px] text-white/30">Choose your table and time.</p></Link>
-          <Link href="/private-dining" className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.018] p-4"><p className="lx-serif text-xl text-[#ead9c2]">Private Dining</p><p className="mt-1 text-[8px] text-white/30">Plan an intimate celebration.</p></Link>
+          <Link href="/experiences/chefs-table" className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.018] p-5 transition hover:border-[#c9944b]/28"><p className="lx-serif text-2xl text-[#ead9c2]">Chef Table</p><p className="mt-2 text-[11px] leading-5 text-white/46">Seven-course dining experience.</p></Link>
+          <Link href="/reservations" className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.018] p-5 transition hover:border-[#c9944b]/28"><p className="lx-serif text-2xl text-[#ead9c2]">Reserve</p><p className="mt-2 text-[11px] leading-5 text-white/46">Choose your table and time.</p></Link>
+          <Link href="/private-dining" className="rounded-[18px] border border-[#e7c58f]/10 bg-white/[.018] p-5 transition hover:border-[#c9944b]/28"><p className="lx-serif text-2xl text-[#ead9c2]">Private Dining</p><p className="mt-2 text-[11px] leading-5 text-white/46">Plan an intimate celebration.</p></Link>
         </div>
       </section>
     </>
